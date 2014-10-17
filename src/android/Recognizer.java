@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
- public class InfoSetup{
+class InfoSetup{
     public String ac;
     public String di;
     public SpeechRecognizer reco;
@@ -40,7 +40,7 @@ import android.widget.Toast;
 
 };
 
-public class SetupGrammarOrKeyphrase{
+class SetupGrammarOrKeyphrase{
     public String name;
     public String keyOrPath;
     public SetupGrammarOrKeyphrase(String s1, String s2){
