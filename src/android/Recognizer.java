@@ -33,13 +33,13 @@ class InfoSetup{
     public String di;
     public SpeechRecognizer reco;
     public CallbackContext call;
-    public Recognizer reco;
+    public Recognizer recoInfo;
     public InfoSetup(String ac, String di, SpeechRecognizer reco, CallbackContext c, Recognizer r){
         this.ac = ac;
         this.di = di;
         this.reco = reco;
         this.call = c;
-        this.reco = r;
+        this.recoInfo = r;
     };
 
 };
@@ -48,12 +48,12 @@ class SetupGrammarOrKeyphrase{
     public String name;
     public String keyOrPath;
     public CallbackContext call;
-    public Recognizer reco;
+    public Recognizer recoGram;
     public SetupGrammarOrKeyphrase(String s1, String s2, CallbackContext c, Recognizer r){
         this.name = s1;
         this.keyOrPath = s2;
         this.call = c;
-        this.reco = r;
+        this.recoGram = r;
     };
 
 };
@@ -101,7 +101,7 @@ public class Recognizer
                             .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
                             .getRecognizer();
 
-                      info.reco.addListener(info.reco);
+                      info.reco.addListener(info.recoInfo);
                     } 
 
                     catch (IOException e) {
