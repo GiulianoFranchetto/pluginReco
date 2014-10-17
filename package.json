@@ -1,0 +1,15 @@
+{
+    "version": "0.0.1",
+    "name": "com.giulianofranchetto.plugins.speechreco",
+    "cordova_name": "speechreco",
+    "description": "A plugin for recognizing words",
+    "keywords": [
+        "cordova",
+        "plugins",
+        "recognition"
+    ],
+    "platforms": [
+        "android"
+    ],
+    "engines": []
+}
