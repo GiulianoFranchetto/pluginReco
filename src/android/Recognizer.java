@@ -78,7 +78,9 @@ public class Recognizer
                 protected void onPostExecute(Exception result) {
                     busy = false;
                     if(result != null) {
-                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, {"message" : "error during recognizer configuration"});
+                        JSONObject obj = new JSONObject();
+                        obj.put("message", "error during recognizer configuration");
+                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, obj);
                         result.setKeepCallback(keepCallback);
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
@@ -110,7 +112,9 @@ public class Recognizer
                     busy = false;
                     if(result != null)
                     {
-                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, {message : "error during grammar configuration"});
+                        JSONObject obj = new JSONObject();
+                        obj.put("message", "error during grammar configuration");
+                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, obj);
                         result.setKeepCallback(keepCallback);
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
@@ -141,7 +145,9 @@ public class Recognizer
                     busy = false;
                     if(result != null)
                     {
-                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, {message : "error during keyphrase configuration"});
+                        JSONObject obj = new JSONObject();
+                        obj.put("message", "error during keyphrase configuration");
+                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, obj);
                         result.setKeepCallback(keepCallback);
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
@@ -185,7 +191,9 @@ public class Recognizer
     public void onResult(Hypothesis hypothesis) {
         if (hypothesis != null) {
             String text = hypothesis.getHypstr();
-            PluginResult result = new PluginResult(PluginResult.Status.OK, {message : text});
+            JSONObject obj = new JSONObject();
+            obj.put("message", text);
+            PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
             result.setKeepCallback(keepCallback);
             this.recognizerCallbackContext.sendPluginResult(result);
         }
