@@ -178,7 +178,6 @@ public class Recognizer
                  @Override
                 protected void onPostExecute(Exception result) {
                     busy = false;
-                    if(result != null)
                 }
 
             }.execute(setup2);
