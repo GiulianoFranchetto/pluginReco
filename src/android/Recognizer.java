@@ -91,7 +91,7 @@ public class Recognizer
                     try {
                         InfoSetup info = params[0];
 
-                        Assets assets = new Assets(info.infoReco.cordova.getActivity().getApplicationContext());
+                        Assets assets = new Assets(info.recoInfo.cordova.getActivity().getApplicationContext());
                         File assetDir = assets.syncAssets();
 
                         File modelsDir = new File(assetDir, "models");
@@ -114,12 +114,6 @@ public class Recognizer
                  @Override
                 protected void onPostExecute(Exception res) {
                     busy = false;
-                    if(res != null) {
-                        JSONObject obj = new JSONObject();
-                        obj.put("message", "error during recognizer configuration");
-                        result = new PluginResult(PluginResult.Status.ERROR, obj);
-                        info.call.recognizerCallbackContext.sendPluginResult(result);
-                    }
                 }
             }.execute(i);
 
@@ -155,13 +149,6 @@ public class Recognizer
                  @Override
                 protected void onPostExecute(Exception res) {
                     busy = false;
-                    if(res != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("message", "error during grammar configuration");
-                        result = new PluginResult(PluginResult.Status.ERROR, obj);
-                        setup.call.recognizerCallbackContext.sendPluginResult(result);
-                    }
                 }
             }.execute(setup1);
 
@@ -192,12 +179,6 @@ public class Recognizer
                 protected void onPostExecute(Exception result) {
                     busy = false;
                     if(result != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("message", "error during keyphrase configuration");
-                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, obj);
-                        setup2.call.recognizerCallbackContext.sendPluginResult(result);
-                    }
                 }
 
             }.execute(setup2);
