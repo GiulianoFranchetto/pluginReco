@@ -87,7 +87,7 @@ public class Recognizer
                 }
             }.execute();
 
-            return true
+            return true;
         }
 
         else if(action.equals("setGrammar")) {
@@ -121,7 +121,7 @@ public class Recognizer
                 }
             }.execute();
 
-            return true
+            return true;
         }
 
         else if(action.equals("setKeyphrase")) {
@@ -155,7 +155,7 @@ public class Recognizer
 
             }.execute();
 
-            return true
+            return true;
         }
 
         else if(action.equals("startListening")) {
@@ -163,20 +163,20 @@ public class Recognizer
             if(!busy) {
                 String searchName = args.getString(0);
                 recognizer.startListening(searchName);
-                return true
+                return true;
             }
             else
-                return false
+                return false;
         }
 
         else if(action.equals("stopListening")) {
 
             if(!busy) {
                 recognizer.stop();
-                return true
+                return true;
             }
             else
-                return false
+                return false;
         }
         // A false return = MethodNotFound error
         return false;
