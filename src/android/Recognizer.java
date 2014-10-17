@@ -136,7 +136,7 @@ public class Recognizer
                     
                     SetupGrammarOrKeyphrase setup = params[0];
                     
-                    Assets assets = new Assets(Recognizer.this);
+                    Assets assets = new Assets(Recognizer);
                     File assetDir = assets.syncAssets();
                     File modelsDir = new File(assetDir, "models");
 
@@ -161,7 +161,7 @@ public class Recognizer
             String keyname = args.getString(0);
             String keyphrase = args.getString(1);
 
-            SetupGrammarOrKeyphrase setup2 = new SetupGrammarOrKeyphrase(keyname,keyphrase,recognizerCallbackContext);
+            SetupGrammarOrKeyphrase setup2 = new SetupGrammarOrKeyphrase(keyname,keyphrase,recognizerCallbackContext,this);
 
 
             new AsyncTask<SetupGrammarOrKeyphrase, Void, Exception>() {
