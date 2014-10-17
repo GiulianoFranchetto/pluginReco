@@ -91,7 +91,7 @@ public class Recognizer
                     try {
                         InfoSetup info = params[0];
 
-                        Assets assets = new Assets(params.infoReco.cordova.getActivity().getApplicationContext());
+                        Assets assets = new Assets(info.infoReco.cordova.getActivity().getApplicationContext());
                         File assetDir = assets.syncAssets();
 
                         File modelsDir = new File(assetDir, "models");
