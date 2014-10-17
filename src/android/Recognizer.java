@@ -78,7 +78,7 @@ public class Recognizer
                 protected void onPostExecute(Exception result) {
                     busy = false;
                     if(result != null) {
-                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, {message : "error during recognizer configuration"});
+                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, {"message" : "error during recognizer configuration"});
                         result.setKeepCallback(keepCallback);
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
