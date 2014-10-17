@@ -136,7 +136,7 @@ public class Recognizer
                     
                     SetupGrammarOrKeyphrase setup = params[0];
                     
-                    Assets assets = new Assets(Recognizer);
+                    Assets assets = new Assets(setup.recoGram.cordova.getActivity().getApplicationContext());
                     File assetDir = assets.syncAssets();
                     File modelsDir = new File(assetDir, "models");
 
