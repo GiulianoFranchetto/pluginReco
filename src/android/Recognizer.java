@@ -134,16 +134,21 @@ public class Recognizer
                 @Override
                 protected Exception doInBackground(SetupGrammarOrKeyphrase... params) {
                     
-                    SetupGrammarOrKeyphrase setup = params[0];
-                    
-                    Assets assets = new Assets(setup.recoGram.cordova.getActivity().getApplicationContext());
-                    File assetDir = assets.syncAssets();
-                    File modelsDir = new File(assetDir, "models");
+                    try{
+                        SetupGrammarOrKeyphrase setup = params[0];
+                        
+                        Assets assets = new Assets(setup.recoGram.cordova.getActivity().getApplicationContext());
+                        File assetDir = assets.syncAssets();
+                        File modelsDir = new File(assetDir, "models");
 
-                    File menuGrammar = new File(modelsDir, setup.keyOrPath);
-                    recognizer.addGrammarSearch(setup.name, menuGrammar);
+                        File menuGrammar = new File(modelsDir, setup.keyOrPath);
+                        recognizer.addGrammarSearch(setup.name, menuGrammar);
 
-                    return null;
+                    }
+                    catch (IOException e) {
+                        return e;
+                    }
+                     return null;
                 }
 
                  @Override
@@ -218,10 +223,13 @@ public class Recognizer
     public void onResult(Hypothesis hypothesis) {
         if (hypothesis != null) {
             String text = hypothesis.getHypstr();
-            JSONObject obj = new JSONObject();
-            obj.put("message", text);
-            result = new PluginResult(PluginResult.Status.OK, obj);
-            this.recognizerCallbackContext.sendPluginResult(result);
+            try{
+                JSONObject obj = new JSONObject();
+                obj.put("message", text);
+                result = new PluginResult(PluginResult.Status.OK, obj);
+                this.recognizerCallbackContext.sendPluginResult(result);
+            }
+            catch(JSONException e){}
         }
     }
 
