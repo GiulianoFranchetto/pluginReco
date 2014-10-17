@@ -28,6 +28,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+ public class InfoSetup{
+    public String ac;
+    public String di;
+    public SpeechRecognizer reco;
+    public InfoSetup(String ac, String di, SpeechRecognizer reco){
+        this.ac = ac;
+        this.di = di;
+        this.reco = reco;
+    };
+
+};
+
+public class SetupGrammarOrKeyphrase{
+    public String name;
+    public String keyOrPath;
+    public SetupGrammarOrKeyphrase(String s1, String s2){
+        this.name = s1;
+        this.keyOrPath = s2;
+    };
+
+};
+
 
 public class Recognizer 
     extends CordovaPlugin
@@ -45,26 +67,32 @@ public class Recognizer
             this.busy = true;
             recognizerCallbackContext = callbackContext;
 
-            new AsyncTask<Void, Void, Exception>() {
+            String acoustic = args.getString(0);
+            String dictionary = args.getString(1);
+
+           
+
+            InfoSetup i = new InfoSetup(acoustic, dictionary, recognizer);
+
+            new AsyncTask<InfoSetup, Void, Exception>() {
            
                 @Override
-                protected Exception doInBackground(Void... params) {
+                protected Exception doInBackground(InfoSetup... params) {
                     
                     try {
+                        InfoSetup info = params[0];
+
                         Assets assets = new Assets(Recognizer.this);
                         File assetDir = assets.syncAssets();
 
-                        String acoustic = args.getString(0);
-                        String dictionary = args.getString(1);
-
                         File modelsDir = new File(assetDir, "models");
                         recognizer = defaultSetup()
-                            .setAcousticModel(new File(modelsDir, acoustic))
-                            .setDictionary(new File(modelsDir, dictionary))
+                            .setAcousticModel(new File(modelsDir, info.ac))
+                            .setDictionary(new File(modelsDir, info.di))
                             .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
                             .getRecognizer();
 
-                      recognizer.addListener(this);
+                      info.reco.addListener(this);
                     } 
 
                     catch (IOException e) {
@@ -85,7 +113,7 @@ public class Recognizer
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
                 }
-            }.execute();
+            }.execute(i);
 
             return true;
         }
@@ -93,16 +121,22 @@ public class Recognizer
         else if(action.equals("setGrammar")) {
             this.busy = true;
 
-            new AsyncTask<Void, Void, Exception>() {
+            String grammarName = args.getString(0);
+            String pathToGrammar = args.getString(1);
+            SetupGrammarOrKeyphrase setup1 = new SetupGrammarOrKeyphrase(grammarName,pathToGrammar);
+
+
+
+            new AsyncTask<SetupGrammarOrKeyphrase, Void, Exception>() {
            
                 @Override
-                protected Exception doInBackground(Void... params) {
-            
-                    String grammarName = args.getString(0);
-                    String pathToGrammar = args.getString(1);
+                protected Exception doInBackground(SetupGrammarOrKeyphrase... params) {
+                    
+                    SetupGrammarOrKeyphrase setup = params[0];
+                    
 
-                    File menuGrammar = new File(modelsDir, pathToGrammar);
-                    recognizer.addGrammarSearch(grammarName, menuGrammar);
+                    File menuGrammar = new File(modelsDir, setup.keyOrPath);
+                    recognizer.addGrammarSearch(setup.name, menuGrammar);
 
                     return null;
                 }
@@ -119,7 +153,7 @@ public class Recognizer
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
                 }
-            }.execute();
+            }.execute(setup1);
 
             return true;
         }
@@ -127,15 +161,19 @@ public class Recognizer
         else if(action.equals("setKeyphrase")) {
             this.busy = true;
 
-            new AsyncTask<Void, Void, Exception>() {
+            String keyname = args.getString(0);
+            String keyphrase = args.getString(1);
+
+            SetupGrammarOrKeyphrase setup2 = new SetupGrammarOrKeyphrase(keyname,keyphrase);
+
+
+            new AsyncTask<SetupGrammarOrKeyphrase, Void, Exception>() {
            
                 @Override
-                protected Exception doInBackground(Void... params) {
+                protected Exception doInBackground(SetupGrammarOrKeyphrase... params) {
             
-                    String keyname = args.getString(0);
-                    String keyphrase = args.getString(1);
-
-                    recognizer.addKeyphraseSearch(keyname, keyphrase);
+                    SetupGrammarOrKeyphrase s2  = param[2];
+                    recognizer.addKeyphraseSearch(s2.name, s2.keyOrPath);
 
                     return null;
                 }
@@ -153,7 +191,7 @@ public class Recognizer
                     }
                 }
 
-            }.execute();
+            }.execute(setup2);
 
             return true;
         }
@@ -194,7 +232,6 @@ public class Recognizer
             JSONObject obj = new JSONObject();
             obj.put("message", text);
             PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
-            result.setKeepCallback(keepCallback);
             this.recognizerCallbackContext.sendPluginResult(result);
         }
     }
