@@ -32,10 +32,12 @@ class InfoSetup{
     public String ac;
     public String di;
     public SpeechRecognizer reco;
-    public InfoSetup(String ac, String di, SpeechRecognizer reco){
+    public CallbackContext call;
+    public InfoSetup(String ac, String di, SpeechRecognizer reco, CallbackContext c){
         this.ac = ac;
         this.di = di;
         this.reco = reco;
+        this.call = c;
     };
 
 };
@@ -43,9 +45,11 @@ class InfoSetup{
 class SetupGrammarOrKeyphrase{
     public String name;
     public String keyOrPath;
-    public SetupGrammarOrKeyphrase(String s1, String s2){
+    public CallbackContext call;
+    public SetupGrammarOrKeyphrase(String s1, String s2, CallbackContext c){
         this.name = s1;
         this.keyOrPath = s2;
+        this.call = c;
     };
 
 };
@@ -59,6 +63,7 @@ public class Recognizer
     private static boolean busy = false; 
 
     private CallbackContext recognizerCallbackContext = null;
+    private PluginResult result;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -72,7 +77,7 @@ public class Recognizer
 
            
 
-            InfoSetup i = new InfoSetup(acoustic, dictionary, recognizer);
+            InfoSetup i = new InfoSetup(acoustic, dictionary, recognizer,recognizerCallbackContext);
 
             new AsyncTask<InfoSetup, Void, Exception>() {
            
@@ -108,8 +113,7 @@ public class Recognizer
                     if(result != null) {
                         JSONObject obj = new JSONObject();
                         obj.put("message", "error during recognizer configuration");
-                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, obj);
-                        result.setKeepCallback(keepCallback);
+                        result = new PluginResult(PluginResult.Status.ERROR, obj);
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
                 }
@@ -123,7 +127,7 @@ public class Recognizer
 
             String grammarName = args.getString(0);
             String pathToGrammar = args.getString(1);
-            SetupGrammarOrKeyphrase setup1 = new SetupGrammarOrKeyphrase(grammarName,pathToGrammar);
+            SetupGrammarOrKeyphrase setup1 = new SetupGrammarOrKeyphrase(grammarName,pathToGrammar,recognizerCallbackContext);
 
 
 
@@ -134,6 +138,9 @@ public class Recognizer
                     
                     SetupGrammarOrKeyphrase setup = params[0];
                     
+                    Assets assets = new Assets(Recognizer.this);
+                    File assetDir = assets.syncAssets();
+                    File modelsDir = new File(assetDir, "models");
 
                     File menuGrammar = new File(modelsDir, setup.keyOrPath);
                     recognizer.addGrammarSearch(setup.name, menuGrammar);
@@ -149,7 +156,6 @@ public class Recognizer
                         JSONObject obj = new JSONObject();
                         obj.put("message", "error during grammar configuration");
                         PluginResult result = new PluginResult(PluginResult.Status.ERROR, obj);
-                        result.setKeepCallback(keepCallback);
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
                 }
@@ -164,7 +170,7 @@ public class Recognizer
             String keyname = args.getString(0);
             String keyphrase = args.getString(1);
 
-            SetupGrammarOrKeyphrase setup2 = new SetupGrammarOrKeyphrase(keyname,keyphrase);
+            SetupGrammarOrKeyphrase setup2 = new SetupGrammarOrKeyphrase(keyname,keyphrase,recognizerCallbackContext);
 
 
             new AsyncTask<SetupGrammarOrKeyphrase, Void, Exception>() {
@@ -172,7 +178,7 @@ public class Recognizer
                 @Override
                 protected Exception doInBackground(SetupGrammarOrKeyphrase... params) {
             
-                    SetupGrammarOrKeyphrase s2  = param[2];
+                    SetupGrammarOrKeyphrase s2  = params[2];
                     recognizer.addKeyphraseSearch(s2.name, s2.keyOrPath);
 
                     return null;
@@ -186,7 +192,6 @@ public class Recognizer
                         JSONObject obj = new JSONObject();
                         obj.put("message", "error during keyphrase configuration");
                         PluginResult result = new PluginResult(PluginResult.Status.ERROR, obj);
-                        result.setKeepCallback(keepCallback);
                         this.recognizerCallbackContext.sendPluginResult(result);
                     }
                 }
@@ -231,7 +236,7 @@ public class Recognizer
             String text = hypothesis.getHypstr();
             JSONObject obj = new JSONObject();
             obj.put("message", text);
-            PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
+            result = new PluginResult(PluginResult.Status.OK, obj);
             this.recognizerCallbackContext.sendPluginResult(result);
         }
     }
