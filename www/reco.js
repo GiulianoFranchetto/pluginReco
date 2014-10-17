@@ -1,6 +1,6 @@
 var cordova = require('cordova');
 
-cordova.define("cordova/plugin/ipaddress", 
+cordova.define("cordova/plugin/recognition", 
     function(require, exports, module) {
         var exec = require('cordova/exec');
 
