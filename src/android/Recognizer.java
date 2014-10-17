@@ -91,7 +91,7 @@ public class Recognizer
                     try {
                         InfoSetup info = params[0];
 
-                        Assets assets = new Assets(Recognizer.this);
+                        Assets assets = new Assets(params.infoReco.cordova.getActivity().getApplicationContext());
                         File assetDir = assets.syncAssets();
 
                         File modelsDir = new File(assetDir, "models");
@@ -112,9 +112,9 @@ public class Recognizer
                 }
 
                  @Override
-                protected void onPostExecute(Exception result) {
+                protected void onPostExecute(Exception res) {
                     busy = false;
-                    if(result != null) {
+                    if(res != null) {
                         JSONObject obj = new JSONObject();
                         obj.put("message", "error during recognizer configuration");
                         result = new PluginResult(PluginResult.Status.ERROR, obj);
@@ -153,13 +153,13 @@ public class Recognizer
                 }
 
                  @Override
-                protected void onPostExecute(Exception result) {
+                protected void onPostExecute(Exception res) {
                     busy = false;
-                    if(result != null)
+                    if(res != null)
                     {
                         JSONObject obj = new JSONObject();
                         obj.put("message", "error during grammar configuration");
-                        PluginResult result = new PluginResult(PluginResult.Status.ERROR, obj);
+                        result = new PluginResult(PluginResult.Status.ERROR, obj);
                         setup.call.recognizerCallbackContext.sendPluginResult(result);
                     }
                 }
