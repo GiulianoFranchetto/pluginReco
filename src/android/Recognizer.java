@@ -69,12 +69,6 @@ public class Recognizer
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
 
-
-    @Override
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
-    }
-
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         
@@ -213,10 +207,8 @@ public class Recognizer
         }
 
         else if(action.equals("test")){
-            this.recognizerCallbackContext.success();
-            JSONObject obj = new JSONObject();
-            result = new PluginResult(PluginResult.Status.OK, obj);
-            this.recognizerCallbackContext.sendPluginResult(result);
+            Log.d("TEST", "TEST");
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, ""));
         }
         // A false return = MethodNotFound error
         return false;
