@@ -6,9 +6,11 @@ cordova.define("cordova/plugin/recognizer",
 
         var Recognizer = function() {
           
-          recoError:cordova.addWindowEventHandler("recoError");
-          recoNewMessage:cordova.addWindowEventHandler("recoNewMessage");
-          recoSetupCompleted:cordova.addWindowEventHandler("recoSetupCompleted");
+          this.channels={
+          recoError:cordova.addWindowEventHandler("recoError"),
+          recoNewMessage:cordova.addWindowEventHandler("recoNewMessage"),
+          recoSetupCompleted:cordova.addWindowEventHandler("recoSetupCompleted")
+        }
 
         };
            
@@ -18,7 +20,7 @@ cordova.define("cordova/plugin/recognizer",
         };
 
         Recognizer.prototype.setupOK = function () {
-                cordova.fireWindowEvent("recoSetupCompleted", info.message);
+          cordova.fireWindowEvent("recoSetupCompleted", info.message);
         };
 
         Recognizer.prototype.error = function(info) {
@@ -46,7 +48,7 @@ cordova.define("cordova/plugin/recognizer",
         };
 
         Recognizer.prototype.stopListening = function(){
-              exec(recognizer.setupOK, recognizer.error, "Recognizer", "stopListening", []);
+              exec(null, null, "Recognizer", "stopListening", []);
 
         };
 
