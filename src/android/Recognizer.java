@@ -87,9 +87,9 @@ public class Recognizer
            
                 @Override
                 protected Exception doInBackground(InfoSetup... params) {
-                    
+                    InfoSetup info = params[0];
+
                     try {
-                        InfoSetup info = params[0];
 
                         Assets assets = new Assets(info.recoInfo.cordova.getActivity().getApplicationContext());
                         File assetDir = assets.syncAssets();
@@ -105,7 +105,7 @@ public class Recognizer
 
                         JSONObject obj = new JSONObject();
                         result = new PluginResult(PluginResult.Status.OK, obj);
-                        this.recognizerCallbackContext.sendPluginResult(result);
+                        info.recoInfo.recognizerCallbackContext.sendPluginResult(result);
                     } 
 
                     catch (IOException e) {
