@@ -95,21 +95,12 @@ public class Recognizer
 
                 recognizer.addListener(this);
 
-                /*JSONObject obj = new JSONObject();
-                result = new PluginResult(PluginResult.Status.OK, obj);
-                result.setKeepCallback(true);
-                this.recognizerCallbackContext.sendPluginResult(result);*/
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, ""));
 
-                this.recognizerCallbackContext.success();
             } 
 
             catch (IOException e) {
-                /*JSONObject obj = new JSONObject();
-                result = new PluginResult(PluginResult.Status.ERROR, obj);
-                result.setKeepCallback(false);
-                this.recognizerCallbackContext.sendPluginResult(result);*/
-                this.recognizerCallbackContext.error("pas cool");
-
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ""));
             }
 
             return true;
