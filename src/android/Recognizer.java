@@ -81,7 +81,6 @@ public class Recognizer
 
            // InfoSetup info = new InfoSetup(acoustic, dictionary, recognizer,recognizerCallbackContext,this);
 
-
             try {
 
                 Assets assets = new Assets(this.cordova.getActivity().getApplicationContext());
@@ -96,17 +95,21 @@ public class Recognizer
 
                 recognizer.addListener(this);
 
-                JSONObject obj = new JSONObject();
+                /*JSONObject obj = new JSONObject();
                 result = new PluginResult(PluginResult.Status.OK, obj);
                 result.setKeepCallback(true);
-                this.recognizerCallbackContext.sendPluginResult(result);
+                this.recognizerCallbackContext.sendPluginResult(result);*/
+
+                this.recognizerCallbackContext.success();
             } 
 
             catch (IOException e) {
-                JSONObject obj = new JSONObject();
+                /*JSONObject obj = new JSONObject();
                 result = new PluginResult(PluginResult.Status.ERROR, obj);
                 result.setKeepCallback(false);
-                this.recognizerCallbackContext.sendPluginResult(result);
+                this.recognizerCallbackContext.sendPluginResult(result);*/
+                this.recognizerCallbackContext.error();
+
             }
 
             return true;
