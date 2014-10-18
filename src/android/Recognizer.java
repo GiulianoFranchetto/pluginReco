@@ -101,10 +101,17 @@ public class Recognizer
                             .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
                             .getRecognizer();
 
-                      info.reco.addListener(info.recoInfo);
+                        info.reco.addListener(info.recoInfo);
+
+                        JSONObject obj = new JSONObject();
+                        result = new PluginResult(PluginResult.Status.OK, obj);
+                        this.recognizerCallbackContext.sendPluginResult(result);
                     } 
 
                     catch (IOException e) {
+                        JSONObject obj = new JSONObject();
+                        result = new PluginResult(PluginResult.Status.ERROR, obj);
+                        info.recoInfo.recognizerCallbackContext.sendPluginResult(result);
                         return e;
                     }
 
@@ -154,18 +161,6 @@ public class Recognizer
                  @Override
                 protected void onPostExecute(Exception res) {
                     busy = false;
-                    if(res != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        result = new PluginResult(PluginResult.Status.ERROR, null);
-                        this.recognizerCallbackContext.sendPluginResult(result);
-                    }
-                    else
-                    {
-                        JSONObject obj = new JSONObject();
-                        result = new PluginResult(PluginResult.Status.OK, null);
-                        this.recognizerCallbackContext.sendPluginResult(result);
-                    }
                 }
             }.execute(setup1);
 
