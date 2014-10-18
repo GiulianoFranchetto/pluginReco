@@ -70,8 +70,10 @@ public class Recognizer
     private PluginResult result;
 
 
-    this.pluginInitialize();
-    
+    public Recognizer(){
+        this.pluginInitialize();
+    }
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         
