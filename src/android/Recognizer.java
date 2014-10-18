@@ -70,8 +70,9 @@ public class Recognizer
     private PluginResult result;
 
 
-    public Recognizer(){
-        this.pluginInitialize();
+    @override
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
     }
 
     @Override
