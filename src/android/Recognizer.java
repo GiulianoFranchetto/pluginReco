@@ -94,7 +94,7 @@ public class Recognizer
                     .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
                     .getRecognizer();
 
-                recognizer.addListener(info.recoInfo);
+                recognizer.addListener(this);
 
                 JSONObject obj = new JSONObject();
                 result = new PluginResult(PluginResult.Status.OK, obj);
