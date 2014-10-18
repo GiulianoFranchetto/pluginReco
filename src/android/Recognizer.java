@@ -205,6 +205,10 @@ public class Recognizer
             else
                 return false;
         }
+
+        else if(action.equals("test")){
+            this.recognizerCallbackContext.success();
+        }
         // A false return = MethodNotFound error
         return false;
     }

@@ -16,8 +16,12 @@ cordova.define("cordova/plugin/recognizer",
         };
         
         Recognizer.prototype.test = function(){
-          cordova.fireWindowEvent("test", null);
+          exec(recognizer.testOK, null, "Recognizer", "test", []);
         };
+
+        Recognizer.prototype.testOK = function(){
+          cordova.fireWindowEvent("test", null);
+        }
 
         Recognizer.prototype.message = function (info) {
             if (info)  
