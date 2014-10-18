@@ -210,6 +210,7 @@ public class Recognizer
             this.recognizerCallbackContext.success();
             JSONObject obj = new JSONObject();
             result = new PluginResult(PluginResult.Status.OK, obj);
+            this.recognizerCallbackContext.sendPluginResult(result);
         }
         // A false return = MethodNotFound error
         return false;
