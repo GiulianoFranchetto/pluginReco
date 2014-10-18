@@ -108,7 +108,7 @@ public class Recognizer
                 result = new PluginResult(PluginResult.Status.ERROR, obj);
                 result.setKeepCallback(false);
                 this.recognizerCallbackContext.sendPluginResult(result);*/
-                this.recognizerCallbackContext.error();
+                this.recognizerCallbackContext.error("pas cool");
 
             }
 
