@@ -79,50 +79,35 @@ public class Recognizer
             String acoustic = args.getString(0);
             String dictionary = args.getString(1);
 
-           
+           // InfoSetup info = new InfoSetup(acoustic, dictionary, recognizer,recognizerCallbackContext,this);
 
-            InfoSetup i = new InfoSetup(acoustic, dictionary, recognizer,recognizerCallbackContext,this);
 
-            new AsyncTask<InfoSetup, Void, Exception>() {
-           
-                @Override
-                protected Exception doInBackground(InfoSetup... params) {
-                    InfoSetup info = params[0];
+            try {
 
-                    try {
+                Assets assets = new Assets(this.cordova.getActivity().getApplicationContext());
+                File assetDir = assets.syncAssets();
 
-                        Assets assets = new Assets(info.recoInfo.cordova.getActivity().getApplicationContext());
-                        File assetDir = assets.syncAssets();
+                File modelsDir = new File(assetDir, "models");
+                recognizer = defaultSetup()
+                    .setAcousticModel(new File(modelsDir, acoustic))
+                    .setDictionary(new File(modelsDir, dictionary))
+                    .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
+                    .getRecognizer();
 
-                        File modelsDir = new File(assetDir, "models");
-                        recognizer = defaultSetup()
-                            .setAcousticModel(new File(modelsDir, info.ac))
-                            .setDictionary(new File(modelsDir, info.di))
-                            .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
-                            .getRecognizer();
+                recognizer.addListener(info.recoInfo);
 
-                        info.reco.addListener(info.recoInfo);
+                JSONObject obj = new JSONObject();
+                result = new PluginResult(PluginResult.Status.OK, obj);
+                result.setKeepCallback(true);
+                this.recognizerCallbackContext.sendPluginResult(result);
+            } 
 
-                        JSONObject obj = new JSONObject();
-                        result = new PluginResult(PluginResult.Status.OK, obj);
-                        info.recoInfo.recognizerCallbackContext.sendPluginResult(result);
-                    } 
-
-                    catch (IOException e) {
-                        JSONObject obj = new JSONObject();
-                        result = new PluginResult(PluginResult.Status.ERROR, obj);
-                        info.recoInfo.recognizerCallbackContext.sendPluginResult(result);
-                        return e;
-                    }
-
-                    return null;
-                }
-
-                 @Override
-                protected void onPostExecute(Exception res) {
-                    busy = false;
-                }
-            }.execute(i);
+            catch (IOException e) {
+                JSONObject obj = new JSONObject();
+                result = new PluginResult(PluginResult.Status.ERROR, obj);
+                result.setKeepCallback(false);
+                this.recognizerCallbackContext.sendPluginResult(result);
+            }
 
             return true;
         }
