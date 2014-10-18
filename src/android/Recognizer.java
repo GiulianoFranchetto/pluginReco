@@ -69,6 +69,9 @@ public class Recognizer
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
 
+
+    this.pluginInitialize();
+    
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         
