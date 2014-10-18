@@ -154,6 +154,18 @@ public class Recognizer
                  @Override
                 protected void onPostExecute(Exception res) {
                     busy = false;
+                    if(res != null)
+                    {
+                        JSONObject obj = new JSONObject();
+                        result = new PluginResult(PluginResult.Status.ERROR, null);
+                        this.recognizerCallbackContext.sendPluginResult(result);
+                    }
+                    else
+                    {
+                        JSONObject obj = new JSONObject();
+                        result = new PluginResult(PluginResult.Status.OK, null);
+                        this.recognizerCallbackContext.sendPluginResult(result);
+                    }
                 }
             }.execute(setup1);
 
