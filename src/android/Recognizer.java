@@ -208,6 +208,8 @@ public class Recognizer
 
         else if(action.equals("test")){
             this.recognizerCallbackContext.success();
+            JSONObject obj = new JSONObject();
+            result = new PluginResult(PluginResult.Status.OK, obj);
         }
         // A false return = MethodNotFound error
         return false;
