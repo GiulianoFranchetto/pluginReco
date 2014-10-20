@@ -26,6 +26,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+import static android.widget.Toast.makeText;
+
 
 
 class InfoSetup{
@@ -94,7 +96,7 @@ public class Recognizer
                     .getRecognizer();
 
                 recognizer.addListener(this);
-
+                makeText(this.cordova.getActivity().getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
                 answer = new JSONObject();
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
                 callbackContext.success();
