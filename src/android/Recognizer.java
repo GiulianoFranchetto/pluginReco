@@ -70,7 +70,8 @@ public class Recognizer
 
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
-    private Activity activity = this.cordova.getActivity().getApplicationContext();
+    private Context activity = this.cordova.getActivity().getApplicationContext();
+    private Recognizer recoClass = this;
 
     private  JSONObject answer;
 
@@ -103,16 +104,16 @@ public class Recognizer
                             .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
                             .getRecognizer();
 
-                        makeText(this.cordova.getActivity().getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
-                        recognizer.addListener(this);
+                        makeText(activity, "ICI", Toast.LENGTH_SHORT).show();
+                        recognizer.addListener(recoClass);
                         answer = new JSONObject();
-                        this.recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
+                        recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
                     } 
 
                     catch (Exception e) {
                         answer = new JSONObject();
                         answer.put("exception", e);
-                        this.recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
+                        recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
                     }
                 }
             }.execute();
