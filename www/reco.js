@@ -27,7 +27,8 @@ cordova.define("cordova/plugin/recognizer",
           cordova.fireWindowEvent("newmessage", info);
         };
 
-        Recognizer.prototype.setupOK = function () {
+        Recognizer.prototype._setupok = function (info) {
+          console.log('Setup completed without issue')
           cordova.fireWindowEvent("setupcompleted", null);
         };
 
@@ -36,15 +37,15 @@ cordova.define("cordova/plugin/recognizer",
         };
 
         Recognizer.prototype.setupRecognizer = function(acoustic, dictionnary){
-          exec(recognizer.setupOK, recognizer._error, "Recognizer", "setupRecognizer", [acoustic, dictionnary]);
+          exec(recognizer._setupok, recognizer._error, "Recognizer", "setupRecognizer", [acoustic, dictionnary]);
         };
 
         Recognizer.prototype.setupGrammar = function(name, path){
-          exec(recognizer.setupOK, recognizer._error, "Recognizer", "setupGrammar", [name, path]);
+          exec(recognizer._setupok, recognizer._error, "Recognizer", "setupGrammar", [name, path]);
         };
 
         Recognizer.prototype.setupKeyphrase = function(name, phrase){
-          exec(recognizer.setupOK, recognizer._error, "Recognizer", "setupKeyphrase", [name, phrase]);
+          exec(recognizer._setupok, recognizer._error, "Recognizer", "setupKeyphrase", [name, phrase]);
 
         };
 
