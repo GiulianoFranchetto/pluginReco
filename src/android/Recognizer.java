@@ -78,7 +78,7 @@ public class Recognizer
         
         if (action.equals("setupRecognizer")) {
             this.busy = true;
-            recognizerCallbackContext = callbackContext;
+            this.recognizerCallbackContext = callbackContext;
 
             String acoustic = args.getString(0);
             String dictionary = args.getString(1);
@@ -98,16 +98,13 @@ public class Recognizer
                 makeText(this.cordova.getActivity().getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
                 recognizer.addListener(this);
                 answer = new JSONObject();
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
-                callbackContext.success();
-
+                this.recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
             } 
 
             catch (Exception e) {
                 answer = new JSONObject();
                 answer.put("exception", e);
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
-                callbackContext.error("fail to setup");
+                this.recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
             }
 
             return true;
