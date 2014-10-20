@@ -100,7 +100,9 @@ public class Recognizer
             } 
 
             catch (IOException e) {
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ""));
+                JSONObject obj = new JSONObject();
+                obj.put('exception', e);
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, obj));
             }
 
             return true;
@@ -198,7 +200,7 @@ public class Recognizer
         }
 
         else if(action.equals("test")){
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ""));
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, ""));
         }
         // A false return = MethodNotFound error
         return false;
