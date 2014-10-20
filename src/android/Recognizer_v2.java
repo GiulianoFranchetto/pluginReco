@@ -12,6 +12,7 @@ import org.json.JSONObject;
 /** CMU SPHINX IMPORTS **/
 import static edu.cmu.pocketsphinx.SpeechRecognizerSetup.defaultSetup;
 import edu.cmu.pocketsphinx.Assets;
+import android.os.AsyncTask;
 import edu.cmu.pocketsphinx.Hypothesis;
 import edu.cmu.pocketsphinx.RecognitionListener;
 import edu.cmu.pocketsphinx.SpeechRecognizer;
@@ -31,11 +32,11 @@ public class Recognizer_v2
     extends CordovaPlugin
     implements RecognitionListener {
 
-    	/** PRIVATE ATTRIBUTES **/
-    	private SpeechRecognizer recognizer = null;
-    	private RecognizerBuilder recognizerBuilder = null;
-    	private CallbackContext callbackContext = null;
-    	private PluginResult result;
+    	/** ATTRIBUTES **/
+    	public SpeechRecognizer recognizer = null;
+    	public RecognizerBuilder recognizerBuilder = null;
+    	public CallbackContext callbackContext = null;
+    	public PluginResult result;
 
 
     	/** CONSTRUCTOR **/
@@ -47,11 +48,12 @@ public class Recognizer_v2
             final CallbackContext callbackId) throws JSONException {
 
     		if(action.equals("setupRecognizer")){
+    			makeText(this.cordova.getActivity().getApplicationContext(), "Début du setup", Toast.LENGTH_SHORT).show();
     			this.callbackContext = callbackId;
-    			recognizerBuilder = new RecognizerBuilder();
-    			recognizer = recognizerBuilder.setupRecognizer(this.cordova.getActivity(), args.getString(0), args.getString(1));
-			    result = new PluginResult(recognizer==null?PluginResult.Status.ERROR:PluginResult.Status.OK);
-			    result.setKeepCallback(false);
+    			this.setupRecognizer();
+    			
+			    result = new PluginResult(PluginResult.Status.NO_RESULT);
+			    result.setKeepCallback(true);
 			    this.callbackContext.sendPluginResult(result);
 			    return true;
 
@@ -76,34 +78,39 @@ public class Recognizer_v2
 
 	    @Override
 	    public void onEndOfSpeech() {
-	    	
+
 	    }
 
+	    private void setupReco(File assetsDir) {
+        	File modelsDir = new File(assetsDir, "models");
+	        recognizer = defaultSetup()
+	                .setAcousticModel(new File(modelsDir, "hmm/lium_french_f2"))
+	                .setDictionary(new File(modelsDir, "dict/frenchWords62K.dic"))
+	                .setRawLogDir(assetsDir).setKeywordThreshold(1e-20f)
+	                .getRecognizer();
+	        recognizer.addListener(this);
+    	}
 
-        class RecognizerBuilder{
-        	public  RecognizerBuilder(){}
+		public void setupRecognizer(){
+            new AsyncTask<Void, Void, Exception>() {
+	            @Override
+	            protected Exception doInBackground(Void... params) {
+	                try {
+	                    Assets assets = new Assets(activity.this);
+	                    File assetDir = assets.syncAssets();
+	                    setupReco(assetDir);
+	                } catch (IOException e) {
+	                    return e;
+	                }
+	                return null;
+	            }
 
-    		public SpeechRecognizer setupRecognizer(Activity activity, String acoustic, String dictionnary){
-    			try{
-    				Assets assets = new Assets(activity.getApplicationContext());
-	                File assetDir = assets.syncAssets();
-
-	                File modelsDir = new File(assetDir, "models");
-	                recognizer = defaultSetup()
-	                    .setAcousticModel(new File(modelsDir, acoustic))
-	                    .setDictionary(new File(modelsDir, dictionnary))
-	                    .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
-	                    .getRecognizer();
-
-	                return recognizer;
-    			}
-    			catch(Exception e){
-    				return null;
-    			}
-
-        	}
-
-        }
-
-
+	            @Override
+	            protected void onPostExecute(Exception e) {
+                    result = new PluginResult(e==null?PluginResult.Status.ERROR : PluginResult.Status.OK);
+				    result.setKeepCallback(false);
+				    callbackContext.sendPluginResult(result);
+	            }
+	        }.execute();
+   		} 
 }
