@@ -34,21 +34,18 @@ public class Recognizer_v2
 
     	/** ATTRIBUTES **/
     	public SpeechRecognizer recognizer = null;
-    	public RecognizerBuilder recognizerBuilder = null;
     	public CallbackContext callbackContext = null;
     	public PluginResult result;
 
 
     	/** CONSTRUCTOR **/
     	public Recognizer_v2(){
-    		recognizerBuilder = new RecognizerBuilder();
     	}
 
     	public boolean execute(String action, final JSONArray args,
             final CallbackContext callbackId) throws JSONException {
 
     		if(action.equals("setupRecognizer")){
-    			makeText(this.cordova.getActivity().getApplicationContext(), "Début du setup", Toast.LENGTH_SHORT).show();
     			this.callbackContext = callbackId;
     			this.setupRecognizer();
     			
