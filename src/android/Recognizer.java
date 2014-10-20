@@ -101,7 +101,7 @@ public class Recognizer
                 protected Exception doInBackground(Void... params) {
                      makeText(activity.getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
 
-                    try {
+                /*    try {
 
                         Assets assets = new Assets(activity.getApplicationContext());
                         File assetDir = assets.syncAssets();
@@ -126,14 +126,14 @@ public class Recognizer
                         answer = new JSONObject();
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
                         return e;
-                    }
+                    }*/
                 }
 
                  @Override
                 protected void onPostExecute(Exception r) {
-                    if (r != null) {
+                  /*  if (r != null) {
                     } else {
-                    }
+                    }*/
                 }
             }.execute();
 
