@@ -81,31 +81,36 @@ public class Recognizer
             String acoustic = args.getString(0);
             String dictionary = args.getString(1);
 
-            try {
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    try {
+                        Assets assets = new Assets(this.cordova.getActivity().getApplicationContext());
+                        File assetDir = assets.syncAssets();
 
-                Assets assets = new Assets(this.cordova.getActivity().getApplicationContext());
-                File assetDir = assets.syncAssets();
+                        File modelsDir = new File(assetDir, "models");
+                        recognizer = defaultSetup()
+                            .setAcousticModel(new File(modelsDir, acoustic))
+                            .setDictionary(new File(modelsDir, dictionary))
+                            .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
+                            .getRecognizer();
 
-                File modelsDir = new File(assetDir, "models");
-                recognizer = defaultSetup()
-                    .setAcousticModel(new File(modelsDir, acoustic))
-                    .setDictionary(new File(modelsDir, dictionary))
-                    .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
-                    .getRecognizer();
+                        recognizer.addListener(this);
 
-                recognizer.addListener(this);
+                        answer = new JSONObject();
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
+                        callbackContext.success();
 
-                answer = new JSONObject();
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
+                    } 
+                    catch (Exception e) {
+                        answer = new JSONObject();
+                        answer.put("exception", e);
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
+                        callbackContext.error("fail to set up");
+                    }
 
-            } 
-
-            catch (Exception e) {
-                answer = new JSONObject();
-                answer.put("exception", e);
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
-            }
-
+                }
+            });
+            
             return true;
         }
 
