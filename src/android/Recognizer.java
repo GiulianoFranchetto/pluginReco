@@ -100,7 +100,6 @@ public class Recognizer
             new AsyncTask<Context, Void, Exception>() {
                 @Override
                 protected Exception doInBackground(Context... params) {
-                     return null;
                      try {
                         Context context = params[0];
                         Assets assets = new Assets(context);
