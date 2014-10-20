@@ -24,15 +24,15 @@ cordova.define("cordova/plugin/recognizer",
         };
 
         Recognizer.prototype.message = function (info) {
-          cordova.fireWindowEvent("recoNewMessage", info);
+          cordova.fireWindowEvent("newmessage", info);
         };
 
         Recognizer.prototype.setupOK = function () {
-          cordova.fireWindowEvent("recoSetupCompleted", null);
+          cordova.fireWindowEvent("setupcompleted", null);
         };
 
         Recognizer.prototype._error = function() {
-            cordova.fireWindowEvent("recoError", null);
+            cordova.fireWindowEvent("error", null);
         };
 
         Recognizer.prototype.setupRecognizer = function(acoustic, dictionnary){
