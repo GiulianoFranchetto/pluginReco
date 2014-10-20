@@ -71,7 +71,6 @@ public class Recognizer
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
     private Activity activity = null;
-    private Context context = null;
     private Recognizer recoClass = this;
 
     private  JSONObject answer;
@@ -82,7 +81,6 @@ public class Recognizer
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         activity = this.cordova.getActivity();
-        context = activity.getApplicationContext();
         //makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
         if (action.equals("setupRecognizer")) {
@@ -98,12 +96,12 @@ public class Recognizer
 
             makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
-            new AsyncTask<Void, Void, Exception>() {
+            new AsyncTask<Context, Void, Exception>() {
                 @Override
-                protected Exception doInBackground(Void... params) {
+                protected Exception doInBackground(Context... params) {
                      return null;
                      try {
-
+                        Context context = params[0];
                         Assets assets = new Assets(context);
                         File assetDir = assets.syncAssets();
 
@@ -134,7 +132,7 @@ public class Recognizer
                     } else {
                     }
                 }
-            }.execute();
+            }.execute(activity.getApplicationContext());
 
             return true;
         }
