@@ -58,7 +58,17 @@ public class Recognizer_v2
     		}
     		else
     			return false;
-        } 
+        }
+
+        @Override
+	    public void onPartialResult(Hypothesis hypothesis) {
+	        
+	    }
+
+	    @Override
+	    public void onResult(Hypothesis hypothesis) {
+	      
+	    } 
 
 
         class RecognizerBuilder{
