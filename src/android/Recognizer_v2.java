@@ -49,7 +49,7 @@ public class Recognizer
     		if(action.equals("setupRecognizer")){
     			this.callbackContext = callbackId;
     			recognizerBuilder = new RecognizerBuilder();
-    			recognizer = recognizerBuilder.setupRecognizer();
+    			recognizer = recognizerBuilder.setupRecognizer(args.getString(0), args.getString(1));
 			    result = new PluginResult(recognizer==null?PluginResult.Status.ERROR:PluginResult.Status.OK);
 			    result.setKeepCallback(false);
 			    this.callbackContext.sendPluginResult(result);
