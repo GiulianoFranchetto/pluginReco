@@ -81,7 +81,7 @@ public class Recognizer
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         activity = this.cordova.getActivity();
-        makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
+        //makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
         if (action.equals("setupRecognizer")) {
             makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
