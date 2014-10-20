@@ -203,7 +203,7 @@ public class Recognizer
         }
 
         else if(action.equals("test")){
-            result = new PluginResult(PluginResult.Status.OK, "")
+            result = new PluginResult(PluginResult.Status.OK, "");
             result.setKeepCallback(false);
             callbackContext.sendPluginResult(result);
         }
