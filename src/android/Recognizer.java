@@ -82,6 +82,8 @@ public class Recognizer
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         
         if (action.equals("setupRecognizer")) {
+            makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
+
             this.busy = true;
             this.recognizerCallbackContext = callbackContext;
 
@@ -94,7 +96,8 @@ public class Recognizer
             new AsyncTask<Void, Void, Exception>() {
                 @Override
                 protected Exception doInBackground(Void... params) {
-                   
+                     makeText(activity.getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
+
                     try {
 
                         Assets assets = new Assets(activity.getApplicationContext());
@@ -116,6 +119,7 @@ public class Recognizer
                     } 
 
                     catch (Exception e) {
+                        makeText(activity.getApplicationContext(), "PQS BIEN", Toast.LENGTH_SHORT).show();
                         answer = new JSONObject();
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
                         return e;
