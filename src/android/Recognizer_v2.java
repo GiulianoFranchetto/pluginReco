@@ -27,7 +27,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import static android.widget.Toast.makeText;
 
-public class Recognizer 
+public class Recognizer_v2 
     extends CordovaPlugin
     implements RecognitionListener {
 
@@ -39,7 +39,7 @@ public class Recognizer
 
 
     	/** CONSTRUCTOR **/
-    	public Recognizer(){
+    	public Recognizer_v2(){
     		recognizerBuilder = new RecognizerBuilder();
     	}
 
@@ -49,7 +49,7 @@ public class Recognizer
     		if(action.equals("setupRecognizer")){
     			this.callbackContext = callbackId;
     			recognizerBuilder = new RecognizerBuilder();
-    			recognizer = recognizerBuilder.setupRecognizer(args.getString(0), args.getString(1));
+    			recognizer = recognizerBuilder.setupRecognizer(this.cordova.getActivity(), args.getString(0), args.getString(1));
 			    result = new PluginResult(recognizer==null?PluginResult.Status.ERROR:PluginResult.Status.OK);
 			    result.setKeepCallback(false);
 			    this.callbackContext.sendPluginResult(result);
