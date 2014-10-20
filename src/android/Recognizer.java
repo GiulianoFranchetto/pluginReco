@@ -101,7 +101,7 @@ public class Recognizer
 
             catch (IOException e) {
                 JSONObject obj = new JSONObject();
-                obj.put('exception', e);
+                obj.put("exception", e);
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, obj));
             }
 
