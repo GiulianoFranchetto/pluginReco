@@ -69,6 +69,15 @@ public class Recognizer_v2
 	    public void onResult(Hypothesis hypothesis) {
 	      
 	    } 
+	      @Override
+	    public void onBeginningOfSpeech() {
+
+	    }
+
+	    @Override
+	    public void onEndOfSpeech() {
+	    	
+	    }
 
 
         class RecognizerBuilder{
