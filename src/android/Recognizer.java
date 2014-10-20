@@ -99,7 +99,7 @@ public class Recognizer
             new AsyncTask<Void, Void, Exception>() {
                 @Override
                 protected Exception doInBackground(Void... params) {
-                     makeText(activity.getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
+                     //makeText(activity.getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
                      return null;
                 /*    try {
 
