@@ -205,6 +205,7 @@ public class Recognizer
         }
 
         else if(action.equals("test")){
+            makeText(this.cordova.getActivity().getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
             result = new PluginResult(PluginResult.Status.OK, "");
             result.setKeepCallback(false);
             callbackContext.sendPluginResult(result);
