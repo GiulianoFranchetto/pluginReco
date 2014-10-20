@@ -93,7 +93,7 @@ public class Recognizer_v2
 	            @Override
 	            protected Exception doInBackground(Void... params) {
 	                try {
-	                    Assets assets = new Assets(this.cordova.getActivity().this);
+	                    Assets assets = new Assets(this.cordova.getActivity());
 	                    File assetDir = assets.syncAssets();
 	                    setupReco(assetDir);
 	                } catch (IOException e) {
