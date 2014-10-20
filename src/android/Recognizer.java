@@ -79,8 +79,6 @@ public class Recognizer
             String acoustic = args.getString(0);
             String dictionary = args.getString(1);
 
-           // InfoSetup info = new InfoSetup(acoustic, dictionary, recognizer,recognizerCallbackContext,this);
-
             try {
 
                 Assets assets = new Assets(this.cordova.getActivity().getApplicationContext());
@@ -95,7 +93,8 @@ public class Recognizer
 
                 recognizer.addListener(this);
 
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, ""));
+                JSONObject obj = new JSONObject();
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, obj));
 
             } 
 
