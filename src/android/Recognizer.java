@@ -88,6 +88,9 @@ public class Recognizer
             this.acoustic = args.getString(0);
             this.dictionary = args.getString(1);
 
+                PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+                pluginResult.setKeepCallback(true);
+
             new AsyncTask<Void, Void, Exception>() {
                 @Override
                 protected Exception doInBackground(Void... params) {
