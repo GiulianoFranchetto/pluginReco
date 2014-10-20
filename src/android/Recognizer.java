@@ -112,7 +112,6 @@ public class Recognizer
 
                     catch (Exception e) {
                         answer = new JSONObject();
-                        answer.put("exception", e);
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
                     }
                 }
