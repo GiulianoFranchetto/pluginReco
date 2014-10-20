@@ -105,7 +105,7 @@ public class Recognizer
                 answer = new JSONObject();
                 answer.put("exception", e);
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
-                callbackContext.error('fail to setup');
+                callbackContext.error("fail to setup");
             }
 
             return true;
