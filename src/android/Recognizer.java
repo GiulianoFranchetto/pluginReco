@@ -95,8 +95,8 @@ public class Recognizer
                     .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
                     .getRecognizer();
 
-                recognizer.addListener(this);
                 makeText(this.cordova.getActivity().getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
+                recognizer.addListener(this);
                 answer = new JSONObject();
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
                 callbackContext.success();
