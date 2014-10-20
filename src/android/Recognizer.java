@@ -70,8 +70,12 @@ public class Recognizer
 
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
+    private Activity activity = this.cordova.getActivity().getApplicationContext();
 
     private  JSONObject answer;
+
+    private String acoustic;
+    private String dictionary;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -80,32 +84,38 @@ public class Recognizer
             this.busy = true;
             this.recognizerCallbackContext = callbackContext;
 
-            String acoustic = args.getString(0);
-            String dictionary = args.getString(1);
+            this.acoustic = args.getString(0);
+            this.dictionary = args.getString(1);
 
-            try {
+            new AsyncTask<Void, Void, Exception>() {
+                @Override
+                protected Exception doInBackground(Void... params) {
+                   
+                    try {
 
-                Assets assets = new Assets(this.cordova.getActivity().getApplicationContext());
-                File assetDir = assets.syncAssets();
+                        Assets assets = new Assets(activity);
+                        File assetDir = assets.syncAssets();
 
-                File modelsDir = new File(assetDir, "models");
-                recognizer = defaultSetup()
-                    .setAcousticModel(new File(modelsDir, acoustic))
-                    .setDictionary(new File(modelsDir, dictionary))
-                    .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
-                    .getRecognizer();
+                        File modelsDir = new File(assetDir, "models");
+                        recognizer = defaultSetup()
+                            .setAcousticModel(new File(modelsDir, acoustic))
+                            .setDictionary(new File(modelsDir, dictionary))
+                            .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
+                            .getRecognizer();
 
-                makeText(this.cordova.getActivity().getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
-                recognizer.addListener(this);
-                answer = new JSONObject();
-                this.recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
-            } 
+                        makeText(this.cordova.getActivity().getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
+                        recognizer.addListener(this);
+                        answer = new JSONObject();
+                        this.recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
+                    } 
 
-            catch (Exception e) {
-                answer = new JSONObject();
-                answer.put("exception", e);
-                this.recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
-            }
+                    catch (Exception e) {
+                        answer = new JSONObject();
+                        answer.put("exception", e);
+                        this.recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
+                    }
+                }
+            }.execute();
 
             return true;
         }
