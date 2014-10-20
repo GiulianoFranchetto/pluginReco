@@ -24,40 +24,36 @@ cordova.define("cordova/plugin/recognizer",
         };
 
         Recognizer.prototype.message = function (info) {
-              cordova.fireWindowEvent("recoNewMessage", info.message);
+          cordova.fireWindowEvent("recoNewMessage", info.message);
         };
 
         Recognizer.prototype.setupOK = function () {
           cordova.fireWindowEvent("recoSetupCompleted", null);
         };
 
-        Recognizer.prototype.onError = function() {
+        Recognizer.prototype.Error = function() {
             cordova.fireWindowEvent("recoError", null);
         };
 
         Recognizer.prototype.setupRecognizer = function(acoustic, dictionnary){
-              exec(recognizer.setupOK, recognizer.onError, "Recognizer", "setupRecognizer", [acoustic, dictionnary]);
-
+          exec(recognizer.setupOK, recognizer.Error, "Recognizer", "setupRecognizer", [acoustic, dictionnary]);
         };
 
         Recognizer.prototype.setupGrammar = function(name, path){
-              exec(recognizer.setupOK, recognizer.onError, "Recognizer", "setupGrammar", [name, path]);
-
+          exec(recognizer.setupOK, recognizer.Error, "Recognizer", "setupGrammar", [name, path]);
         };
 
         Recognizer.prototype.setupKeyphrase = function(name, phrase){
-              exec(recognizer.setupOK, recognizer.onError, "Recognizer", "setupKeyphrase", [name, phrase]);
+          exec(recognizer.setupOK, recognizer.Error, "Recognizer", "setupKeyphrase", [name, phrase]);
 
         };
 
         Recognizer.prototype.startListening = function(name){
-              exec(recognizer.message, recognizer.onError, "Recognizer", "startListening", [name]);
-
+          exec(recognizer.message, recognizer.Error, "Recognizer", "startListening", [name]);
         };
 
         Recognizer.prototype.stopListening = function(){
-              exec(null, null, "Recognizer", "stopListening", []);
-
+          exec(null, null, "Recognizer", "stopListening", []);
         };
 
         var recognizer = new Recognizer();
