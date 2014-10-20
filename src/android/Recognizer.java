@@ -84,7 +84,6 @@ public class Recognizer
         //makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
         if (action.equals("setupRecognizer")) {
-            makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
             this.busy = true;
             this.recognizerCallbackContext = callbackContext;
@@ -92,8 +91,10 @@ public class Recognizer
             this.acoustic = args.getString(0);
             this.dictionary = args.getString(1);
 
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
-                pluginResult.setKeepCallback(true);
+            PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+            pluginResult.setKeepCallback(true);
+
+            makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
             new AsyncTask<Void, Void, Exception>() {
                 @Override
