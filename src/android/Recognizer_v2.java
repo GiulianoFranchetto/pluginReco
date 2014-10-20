@@ -49,11 +49,8 @@ public class Recognizer_v2
     			this.callbackContext = callbackId;
     			this.setupRecognizer();
     			
-			    result = new PluginResult(PluginResult.Status.NO_RESULT);
-			    result.setKeepCallback(true);
-			    this.callbackContext.sendPluginResult(result);
-			    return true;
-
+			    PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+				pluginResult.setKeepCallback(true);
     		}
     		else
     			return false;
@@ -104,9 +101,15 @@ public class Recognizer_v2
 
 	            @Override
 	            protected void onPostExecute(Exception e) {
-                    result = new PluginResult(e==null?PluginResult.Status.ERROR : PluginResult.Status.OK);
-				    result.setKeepCallback(false);
-				    callbackContext.sendPluginResult(result);
+                    if(e==null){
+                    	result = new PluginResult(PluginResult.Status.OK);
+			            result.setKeepCallback(false);
+			            this.success(result, callbackContext);
+		      		}else{
+		      			result = new PluginResult(PluginResult.Status.ERROR);
+			            result.setKeepCallback(false);
+			            this.success(result, callbackContext);
+		      		}
 	            }
 	        }.execute();
    		} 
