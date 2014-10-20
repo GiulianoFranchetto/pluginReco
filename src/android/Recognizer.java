@@ -108,11 +108,14 @@ public class Recognizer
                         recognizer.addListener(recoClass);
                         answer = new JSONObject();
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
+
+                        return null;
                     } 
 
                     catch (Exception e) {
                         answer = new JSONObject();
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
+                        return e;
                     }
                 }
             }.execute();
