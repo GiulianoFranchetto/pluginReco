@@ -16,7 +16,7 @@ cordova.define("cordova/plugin/recognizer",
         };
         
         Recognizer.prototype.test = function(){
-          exec(recognizer.testOK, null, "Recognizer", "test", []);
+          exec(recognizer.testOK, recognizer._error, "Recognizer", "test", []);
         };
 
         Recognizer.prototype.testOK = function(){

@@ -198,7 +198,7 @@ public class Recognizer
         }
 
         else if(action.equals("test")){
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, ""));
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, ""));
         }
         // A false return = MethodNotFound error
         return false;
