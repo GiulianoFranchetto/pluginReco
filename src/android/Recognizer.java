@@ -69,6 +69,8 @@ public class Recognizer
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
 
+    private  JSONObject answer;
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         
@@ -93,15 +95,15 @@ public class Recognizer
 
                 recognizer.addListener(this);
 
-                JSONObject obj = new JSONObject();
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, obj));
+                answer = new JSONObject();
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
 
             } 
 
-            catch (IOException e) {
-                JSONObject obj = new JSONObject();
-                obj.put("exception", e);
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, obj));
+            catch (Exception e) {
+                answer = new JSONObject();
+                answer.put("exception", e);
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
             }
 
             return true;
