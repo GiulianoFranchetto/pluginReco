@@ -72,7 +72,7 @@ public class Recognizer
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
     private Activity activity = null;
-    private Recognizer recoClass = this;
+    private Recognizer recoClass;
 
     private  JSONObject answer;
 
@@ -82,6 +82,7 @@ public class Recognizer
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         activity = this.cordova.getActivity();
+        recoClass = this;
         //makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
         if (action.equals("setupRecognizer")) {
