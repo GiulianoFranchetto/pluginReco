@@ -128,6 +128,13 @@ public class Recognizer
                         return e;
                     }
                 }
+
+                 @Override
+                protected void onPostExecute(Exception r) {
+                    if (r != null) {
+                    } else {
+                    }
+                }
             }.execute();
 
             return true;
