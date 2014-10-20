@@ -7,10 +7,10 @@ cordova.define("cordova/plugin/recognizer",
         var Recognizer = function() {
           
           this.channels={
-            recoNewMessage:cordova.addWindowEventHandler("recoNewMessage"),
-            recoSetupCompleted:cordova.addWindowEventHandler("recoSetupCompleted"),
+            recoNewMessage:cordova.addWindowEventHandler("newmessage"),
+            recoSetupCompleted:cordova.addWindowEventHandler("setupcompleted"),
             test:cordova.addWindowEventHandler("test2"),
-            recoError:cordova.addWindowEventHandler("recoError")
+            recoError:cordova.addWindowEventHandler("error")
           };
 
         };
