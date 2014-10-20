@@ -80,9 +80,10 @@ public class Recognizer
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        
+        makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
+
         if (action.equals("setupRecognizer")) {
-            makeText(getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
+            makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
             this.busy = true;
             this.recognizerCallbackContext = callbackContext;
