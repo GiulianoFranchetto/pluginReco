@@ -125,7 +125,7 @@ public class Recognizer
                         answer = new JSONObject();
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
                         return e;
-                    }*/
+                    }
                 }
 
                  @Override
