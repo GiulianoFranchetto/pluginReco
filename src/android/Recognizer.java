@@ -100,7 +100,7 @@ public class Recognizer
                 @Override
                 protected Exception doInBackground(Void... params) {
                      makeText(activity.getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
-
+                     return null;
                 /*    try {
 
                         Assets assets = new Assets(activity.getApplicationContext());
