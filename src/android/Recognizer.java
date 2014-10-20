@@ -71,6 +71,7 @@ public class Recognizer
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
     private Activity activity = null;
+    private Context context = null;
     private Recognizer recoClass = this;
 
     private  JSONObject answer;
@@ -81,6 +82,7 @@ public class Recognizer
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         activity = this.cordova.getActivity();
+        context = activity.getApplicationContext();
         //makeText(activity.getApplicationContext(), "DEBUT", Toast.LENGTH_SHORT).show();
 
         if (action.equals("setupRecognizer")) {
@@ -99,11 +101,10 @@ public class Recognizer
             new AsyncTask<Void, Void, Exception>() {
                 @Override
                 protected Exception doInBackground(Void... params) {
-                     //makeText(activity.getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
                      return null;
-                /*    try {
+                     try {
 
-                        Assets assets = new Assets(activity.getApplicationContext());
+                        Assets assets = new Assets(context);
                         File assetDir = assets.syncAssets();
 
                         File modelsDir = new File(assetDir, "models");
@@ -113,7 +114,6 @@ public class Recognizer
                             .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
                             .getRecognizer();
 
-                        makeText(activity.getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
                         recognizer.addListener(recoClass);
                         answer = new JSONObject();
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
@@ -122,7 +122,6 @@ public class Recognizer
                     } 
 
                     catch (Exception e) {
-                        makeText(activity.getApplicationContext(), "PQS BIEN", Toast.LENGTH_SHORT).show();
                         answer = new JSONObject();
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, answer));
                         return e;
@@ -131,9 +130,9 @@ public class Recognizer
 
                  @Override
                 protected void onPostExecute(Exception r) {
-                  /*  if (r != null) {
+                    if (r != null) {
                     } else {
-                    }*/
+                    }
                 }
             }.execute();
 
