@@ -70,7 +70,7 @@ public class Recognizer
 
     private CallbackContext recognizerCallbackContext = null;
     private PluginResult result;
-    private Context activity = this.cordova.getActivity().getApplicationContext();
+    private Activity activity = this.cordova.getActivity();
     private Recognizer recoClass = this;
 
     private  JSONObject answer;
@@ -94,7 +94,7 @@ public class Recognizer
                    
                     try {
 
-                        Assets assets = new Assets(activity);
+                        Assets assets = new Assets(activity.getApplicationContext());
                         File assetDir = assets.syncAssets();
 
                         File modelsDir = new File(assetDir, "models");
@@ -104,7 +104,7 @@ public class Recognizer
                             .setRawLogDir(assetDir).setKeywordThreshold(1e-20f)
                             .getRecognizer();
 
-                        makeText(activity, "ICI", Toast.LENGTH_SHORT).show();
+                        makeText(activity.getApplicationContext(), "ICI", Toast.LENGTH_SHORT).show();
                         recognizer.addListener(recoClass);
                         answer = new JSONObject();
                         recognizerCallbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, answer));
