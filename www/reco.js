@@ -33,6 +33,7 @@ cordova.define("cordova/plugin/recognizer",
         };
 
         Recognizer.prototype._error = function(info) {
+          console.log(info);
           cordova.fireWindowEvent("error", info);
         };
 
