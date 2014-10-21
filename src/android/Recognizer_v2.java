@@ -36,6 +36,7 @@ public class Recognizer_v2
     	public SpeechRecognizer recognizer = null;
     	public CallbackContext callbackContext = null;
     	public PluginResult result;
+    	public Activity activity;
 
 
     	/** CONSTRUCTOR **/
@@ -44,7 +45,7 @@ public class Recognizer_v2
 
     	public boolean execute(String action, final JSONArray args,
             final CallbackContext callbackId) throws JSONException {
-
+    		activity = this.cordova.getActivity();
     		if(action.equals("setupRecognizer")){
     			this.callbackContext = callbackId;
 
@@ -97,7 +98,7 @@ public class Recognizer_v2
 
 		public Exception setupRecognizer(){
             try {
-                Assets assets = new Assets(this.cordova.getContext());
+                Assets assets = new Assets(activity.getApplicationContext());
                 File assetDir = assets.syncAssets();
                 setupReco(assetDir);
             } catch (IOException e) {
