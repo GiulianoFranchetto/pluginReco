@@ -43,6 +43,8 @@ public class Recognizer_v2
     	private String dictionnary = "";
     	private ArrayList<String> grammarsName;
     	private ArrayList<String> grammarsPath;
+    	private ArrayList<String> keyName;
+    	private ArrayList<String> keyPhrase;
     	private File modelsDir;
 
     	private JSONObject obj;
@@ -71,17 +73,25 @@ public class Recognizer_v2
 		                Exception e = setupRecognizer();
 		                if(e==null){
 		                	setup = true;
-				            //callbackContext.success("Initialization completed");
 				            try{
 				            	obj = new JSONObject();
 				            	obj.put("message", "Initialization completed" );
 				            	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
 						    	callbackContext.sendPluginResult(pluginResult);
 						    }
-						    catch(Exception ex){//dummy try catch
+						    catch(Exception ex){
+						    	//dummy try catch
 						    }
 			      		}else{
-				            callbackContext.error("Fail to initialize");
+				            try{
+				            	obj = new JSONObject();
+				            	obj.put("message", "Fail to initialize" );
+				            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
+						    	callbackContext.sendPluginResult(pluginResult);
+						    }
+						    catch(Exception ex){
+						    	//dummy try catch
+						    }
 			      		}
 		            }
 		        });
@@ -103,20 +113,59 @@ public class Recognizer_v2
 	        				recognizer.addGrammarSearch(gName, menuGrammar);
 			            }
 			            catch(Exception e){
-			            	callbackContext.error("Fail to setup grammar");
-			            	/*JSONObject obj = new JSONObject();
+			            	obj = new JSONObject();
 			            	obj.put("message", "Fail to setup grammar" );
 			            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
-			            	pluginResult.setKeepCallback(true);
-						    callbackContext.sendPluginResult(pluginResult);*/
+						    callbackContext.sendPluginResult(pluginResult);
 			            	return true;
 			            }
 	        		}
-	        		callbackContext.success();
-	        		return true;
+					obj = new JSONObject();
+	            	obj.put("message", "Grammar setup completed" );
+	            	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
+				    callbackContext.sendPluginResult(pluginResult);	        		
+				    return true;
 	        	}
 	        	else{
-	        		callbackContext.error("Recognizer not initialized.");
+	        		obj = new JSONObject();
+	            	obj.put("message", "Recognizer not initialized" );
+	            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
+				    callbackContext.sendPluginResult(pluginResult);
+	        		return true;
+	        	}
+	    	}
+
+	    	else if(action.equals("setupKeyphrase")){
+	    		if(setup){
+		    		for(int i = 0; i < args.length(); i++){
+		    			String kName = args.getJSONObject(i).getString("name");
+		    			String kPhrase = args.getJSONObject(i).getString("phrase");
+
+			            this.keyName.add(kName);
+			            this.keyPhrase.add(keyPhrase);
+
+			            try{
+			            	 recognizer.addKeyphraseSearch(kName, kPhrase);
+			            }
+			            catch(Exception e){
+			            	obj = new JSONObject();
+			            	obj.put("message", "Fail to setup keyphrase" );
+			            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
+						    callbackContext.sendPluginResult(pluginResult);
+			            	return true;
+			            }
+	        		}
+					obj = new JSONObject();
+	            	obj.put("message", "Keyphrase setup completed" );
+	            	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
+				    callbackContext.sendPluginResult(pluginResult);	        		
+				    return true;
+	        	}
+	        	else{
+	        		obj = new JSONObject();
+	            	obj.put("message", "Recognizer not initialized" );
+	            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
+				    callbackContext.sendPluginResult(pluginResult);
 	        		return true;
 	        	}
 	    	}
