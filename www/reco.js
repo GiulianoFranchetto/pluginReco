@@ -9,19 +9,12 @@ cordova.define("cordova/plugin/recognizer",
           this.channels={
             recoNewMessage:cordova.addWindowEventHandler("newmessage"),
             recoSetupCompleted:cordova.addWindowEventHandler("setupcompleted"),
-            test:cordova.addWindowEventHandler("test2"),
+            recoKeyphraseCompleted:cordova.addWindowEventHandler("keyphrasecompleted"),
             recoError:cordova.addWindowEventHandler("error")
           };
 
         };
-        
-        Recognizer.prototype.test = function(){
-          exec(recognizer.testOK, recognizer._error, "Recognizer", "test", []);
-        };
-
-        Recognizer.prototype.testOK = function(){
-          cordova.fireWindowEvent("test2", null);
-        };
+      
 
         Recognizer.prototype.message = function (info) {
           cordova.fireWindowEvent("newmessage", info);
@@ -45,8 +38,8 @@ cordova.define("cordova/plugin/recognizer",
           exec(recognizer._setupok, recognizer._error, "Recognizer", "setupGrammar", gramars);
         };
 
-        Recognizer.prototype.setupKeyphrase = function(name, phrase){
-          exec(recognizer._setupok, recognizer._error, "Recognizer", "setupKeyphrase", [name, phrase]);
+        Recognizer.prototype.setupKeyphrase = function(keys){
+          exec(recognizer._setupok, recognizer._error, "Recognizer", "setupKeyphrase", keys);
 
         };
 

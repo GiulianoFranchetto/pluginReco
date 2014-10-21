@@ -61,10 +61,10 @@ public class Recognizer_v2
     	public boolean execute(String action, final JSONArray args,
             final CallbackContext callbackId) throws JSONException {
     		activity = this.cordova.getActivity();
+    		this.callbackContext = callbackId;
 
     		if(action.equals("setupRecognizer")){
-    			
-    			this.callbackContext = callbackId;
+    	
     			this.accoustic = args.getString(0);
     			this.dictionnary = args.getString(1);
 
@@ -170,19 +170,37 @@ public class Recognizer_v2
 	        	}
 	    	}
 
+	    	else if(action.equals("startListening")){
+				if(setup){
+					String searchName = args.getString(0); 
+		    		recognizer.startListening(searchName);
+	    		}
+	    		else {
+	    			obj = new JSONObject();
+	            	obj.put("message", "Recognizer not initialized" );
+	            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
+				    callbackContext.sendPluginResult(pluginResult);
+	    		}
+	    		return true;	
+	    	}
+
 	   		return false;
 		}
     			
 
 
         @Override
-	    public void onPartialResult(Hypothesis hypothesis) {
-	        
+	    public void onPartialResult(Hypothesis hypothesis) {	        
 	    }
 
 	    @Override
 	    public void onResult(Hypothesis hypothesis) {
-	      
+        	String listenedText = hypothesis.getHypstr();
+	    	obj = new JSONObject();
+        	obj.put("message", listenedText);
+        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
+        	pluginResult.setKeepCallback(true);
+		    callbackContext.sendPluginResult(pluginResult);
 	    } 
 	      @Override
 	    public void onBeginningOfSpeech() {
