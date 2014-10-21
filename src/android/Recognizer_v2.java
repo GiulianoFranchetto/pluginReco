@@ -195,12 +195,17 @@ public class Recognizer_v2
 
 	    @Override
 	    public void onResult(Hypothesis hypothesis) {
-        	String listenedText = hypothesis.getHypstr();
-	    	obj = new JSONObject();
-        	obj.put("message", listenedText);
-        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
-        	pluginResult.setKeepCallback(true);
-		    callbackContext.sendPluginResult(pluginResult);
+        	try{
+	        	String listenedText = hypothesis.getHypstr();
+		    	obj = new JSONObject();
+	        	obj.put("message", listenedText);
+	        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
+	        	pluginResult.setKeepCallback(true);
+			    callbackContext.sendPluginResult(pluginResult);
+			}
+			catch(Exception ex){
+				//dummy exception
+			}
 	    } 
 	      @Override
 	    public void onBeginningOfSpeech() {
