@@ -33,10 +33,13 @@ public class Recognizer_v2
     implements RecognitionListener {
 
     	/** ATTRIBUTES **/
-    	public SpeechRecognizer recognizer = null;
-    	public CallbackContext callbackContext = null;
-    	public PluginResult result;
-    	public Activity activity;
+    	private SpeechRecognizer recognizer = null;
+    	private CallbackContext callbackContext = null;
+    	private PluginResult result;
+    	private Activity activity;
+
+    	private String accoustic = "";
+    	private String dictionnary = "";
 
 
     	/** CONSTRUCTOR **/
@@ -46,8 +49,11 @@ public class Recognizer_v2
     	public boolean execute(String action, final JSONArray args,
             final CallbackContext callbackId) throws JSONException {
     		activity = this.cordova.getActivity();
+
     		if(action.equals("setupRecognizer")){
     			this.callbackContext = callbackId;
+    			this.accoustic = args.getString(0);
+    			this.dictionnary = args.getString(1);
 
 		        cordova.getThreadPool().execute(new Runnable() {
 		            public void run() {
@@ -89,11 +95,11 @@ public class Recognizer_v2
 	    private void setupReco(File assetsDir) {
         	File modelsDir = new File(assetsDir, "models");
 	        recognizer = defaultSetup()
-	                .setAcousticModel(new File(modelsDir, "hmm/lium_french_f2"))
-	                .setDictionary(new File(modelsDir, "dict/frenchWords62K.dic"))
+	                .setAcousticModel(new File(modelsDir, accoustic))
+	                .setDictionary(new File(modelsDir, dictionnary))
 	                .setRawLogDir(assetsDir).setKeywordThreshold(1e-20f)
 	                .getRecognizer();
-	        //recognizer.addListener(this);
+	        recognizer.addListener(this);
     	}
 
 		public Exception setupRecognizer(){
