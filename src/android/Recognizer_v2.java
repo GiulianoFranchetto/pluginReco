@@ -72,10 +72,13 @@ public class Recognizer_v2
 		                if(e==null){
 		                	setup = true;
 				            //callbackContext.success("Initialization completed");
-				            obj = new JSONObject();
-			            	obj.put("message", "Initialization completed" );
-			            	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
-						    callbackContext.sendPluginResult(pluginResult);
+				            try{
+				            	obj = new JSONObject();
+				            	obj.put("message", "Initialization completed" );
+				            	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
+						    	callbackContext.sendPluginResult(pluginResult);
+						    }
+						    catch(Exception e){//dummy try catch}
 			      		}else{
 				            callbackContext.error("Fail to initialize");
 			      		}
