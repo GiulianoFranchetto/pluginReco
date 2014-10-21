@@ -45,6 +45,8 @@ public class Recognizer_v2
     	private ArrayList<String> grammarsPath;
     	private File modelsDir;
 
+    	privqte JSONObject obj;
+
     	private boolean setup = false;
 
 
@@ -69,7 +71,11 @@ public class Recognizer_v2
 		                Exception e = setupRecognizer();
 		                if(e==null){
 		                	setup = true;
-				            callbackContext.success("Initialization completed");
+				            //callbackContext.success("Initialization completed");
+				            obj = new JSONObject();
+			            	obj.put("message", "Initialization completed" );
+			            	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
+						    callbackContext.sendPluginResult(pluginResult);
 			      		}else{
 				            callbackContext.error("Fail to initialize");
 			      		}
