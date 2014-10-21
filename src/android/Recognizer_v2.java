@@ -142,7 +142,7 @@ public class Recognizer_v2
 		    			String kPhrase = args.getJSONObject(i).getString("phrase");
 
 			            this.keyName.add(kName);
-			            this.keyPhrase.add(keyPhrase);
+			            this.keyPhrase.add(kPhrase);
 
 			            try{
 			            	 recognizer.addKeyphraseSearch(kName, kPhrase);
