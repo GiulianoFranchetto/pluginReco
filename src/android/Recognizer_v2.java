@@ -175,7 +175,7 @@ public class Recognizer_v2
 					String searchName = args.getString(0); 
 		    		recognizer.startListening(searchName);
 	    		}
-	    		else {
+	    		else{
 	    			obj = new JSONObject();
 	            	obj.put("message", "Recognizer not initialized" );
 	            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
