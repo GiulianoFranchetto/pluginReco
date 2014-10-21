@@ -50,15 +50,11 @@ public class Recognizer_v2
 
 		        cordova.getThreadPool().execute(new Runnable() {
 		            public void run() {
-		                Execption e = setupRecognizer();
+		                Exception e = setupRecognizer();
 		                if(e==null){
-	                    	result = new PluginResult(PluginResult.Status.OK);
-				            result.setKeepCallback(false);
-				            callbackContext.success(result);
+				            callbackContext.success();
 			      		}else{
-			      			result = new PluginResult(PluginResult.Status.ERROR);
-				            result.setKeepCallback(false);
-				            callbackContext.error(result);
+				            callbackContext.error("Fail");
 			      		}
 		            }
 		        });
