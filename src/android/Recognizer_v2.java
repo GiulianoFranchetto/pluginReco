@@ -97,6 +97,7 @@ public class Recognizer_v2
 			            	JSONObject obj = new JSONObject();
 			            	obj.put("message", "Fail to setup grammar" );
 			            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
+			            	pluginResult.setKeepCallback(true);
 						    callbackContext.sendPluginResult(pluginResult);
 			            	return true;
 			            }
