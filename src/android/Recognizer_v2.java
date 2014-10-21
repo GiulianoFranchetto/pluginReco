@@ -78,7 +78,7 @@ public class Recognizer_v2
 				            	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
 						    	callbackContext.sendPluginResult(pluginResult);
 						    }
-						    catch(Exception e){//dummy try catch
+						    catch(Exception ex){//dummy try catch
 						    }
 			      		}else{
 				            callbackContext.error("Fail to initialize");
