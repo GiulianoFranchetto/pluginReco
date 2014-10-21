@@ -47,14 +47,28 @@ public class Recognizer_v2
 
     		if(action.equals("setupRecognizer")){
     			this.callbackContext = callbackId;
-    			this.setupRecognizer();
+
+		        cordova.getThreadPool().execute(new Runnable() {
+		            public void run() {
+		                Execption e = setupRecognizer();
+		                if(e==null){
+	                    	result = new PluginResult(PluginResult.Status.OK);
+				            result.setKeepCallback(false);
+				            callbackContext.success(result);
+			      		}else{
+			      			result = new PluginResult(PluginResult.Status.ERROR);
+				            result.setKeepCallback(false);
+				            callbackContext.error(result);
+			      		}
+		            }
+		        });
+
+       			return true;
+	    	}
+	   		return false;
+		}
     			
-			    PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
-				pluginResult.setKeepCallback(true);
-    		}
-    		else
-    			return false;
-        }
+
 
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {
@@ -82,35 +96,17 @@ public class Recognizer_v2
 	                .setDictionary(new File(modelsDir, "dict/frenchWords62K.dic"))
 	                .setRawLogDir(assetsDir).setKeywordThreshold(1e-20f)
 	                .getRecognizer();
-	        recognizer.addListener(this);
+	        //recognizer.addListener(this);
     	}
 
-		public void setupRecognizer(){
-            new AsyncTask<Void, Void, Exception>() {
-	            @Override
-	            protected Exception doInBackground(Void... params) {
-	                try {
-	                    Assets assets = new Assets(Recognizer_v2.this.cordova.getActivity());
-	                    File assetDir = assets.syncAssets();
-	                    setupReco(assetDir);
-	                } catch (IOException e) {
-	                    return e;
-	                }
-	                return null;
-	            }
-
-	            @Override
-	            protected void onPostExecute(Exception e) {
-                    if(e==null){
-                    	result = new PluginResult(PluginResult.Status.OK);
-			            result.setKeepCallback(false);
-			            this.success(result, callbackContext);
-		      		}else{
-		      			result = new PluginResult(PluginResult.Status.ERROR);
-			            result.setKeepCallback(false);
-			            this.success(result, callbackContext);
-		      		}
-	            }
-	        }.execute();
-   		} 
+		public Exception setupRecognizer(){
+            try {
+                Assets assets = new Assets(Recognizer_v2.this.cordova.getActivity());
+                File assetDir = assets.syncAssets();
+                setupReco(assetDir);
+            } catch (IOException e) {
+                return e;
+            }
+            return null;
+        } 
 }
