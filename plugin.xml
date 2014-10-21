@@ -8,6 +8,8 @@
         <clobbers target="window.reco" />
     </js-module>
 
+    <source-file src="platforms/android/src/libs/sphinx.jar" target-dir="libs" />
+
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Recognizer">
