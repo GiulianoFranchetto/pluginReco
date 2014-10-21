@@ -33,15 +33,15 @@ cordova.define("cordova/plugin/recognizer",
         };
 
         Recognizer.prototype._error = function(info) {
-          cordova.fireWindowEvent("error", info.exception);
+          cordova.fireWindowEvent("error", info);
         };
 
         Recognizer.prototype.setupRecognizer = function(acoustic, dictionnary){
           exec(recognizer._setupok, recognizer._error, "Recognizer", "setupRecognizer", [acoustic, dictionnary]);
         };
 
-        Recognizer.prototype.setupGrammar = function(name, path){
-          exec(recognizer._setupok, recognizer._error, "Recognizer", "setupGrammar", [name, path]);
+        Recognizer.prototype.setupGrammar = function(gramars){
+          exec(recognizer._setupok, recognizer._error, "Recognizer", "setupGrammar", gramars);
         };
 
         Recognizer.prototype.setupKeyphrase = function(name, phrase){

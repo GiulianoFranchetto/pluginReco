@@ -45,6 +45,8 @@ public class Recognizer_v2
     	private ArrayList<String> grammarsPath;
     	private File modelsDir;
 
+    	private boolean setup = false;
+
 
     	/** CONSTRUCTOR **/
     	public Recognizer_v2(){
@@ -66,6 +68,7 @@ public class Recognizer_v2
 		            public void run() {
 		                Exception e = setupRecognizer();
 		                if(e==null){
+		                	setup = true;
 				            callbackContext.success();
 			      		}else{
 				            callbackContext.error("Fail to initialize");
@@ -76,26 +79,31 @@ public class Recognizer_v2
        			return true;
 	    	}
 
-	    	else if(action.equals("setGrammar")){
-	    		
-	    		for(int i = 0; i < args.length(); i++){
-	    			String gName = args.getJSONObject(i).getString("name");
-	    			String gPath = args.getJSONObject(i).getString("path");
+	    	else if(action.equals("setupGrammar")){
+	    		if(setup){
+		    		for(int i = 0; i < args.length(); i++){
+		    			String gName = args.getJSONObject(i).getString("name");
+		    			String gPath = args.getJSONObject(i).getString("path");
 
-		            this.grammarsName.add(gName);
-		            this.grammarsPath.add(gPath);
+			            this.grammarsName.add(gName);
+			            this.grammarsPath.add(gPath);
 
-		            try{
-		            	File menuGrammar = new File(modelsDir, gPath);
-        				recognizer.addGrammarSearch(gName, menuGrammar);
-		            }
-		            catch(Exception e){
-		            	callbackContext.error("Fail to setup grammar");
-		            	return true;
-		            }
-        		}
-        		callbackContext.success();
-        		return true;
+			            try{
+			            	File menuGrammar = new File(modelsDir, gPath);
+	        				recognizer.addGrammarSearch(gName, menuGrammar);
+			            }
+			            catch(Exception e){
+			            	callbackContext.error("Fail to setup grammar");
+			            	return true;
+			            }
+	        		}
+	        		callbackContext.success();
+	        		return true;
+	        	}
+	        	else{
+	        		callbackContext.error("Recognizer not initialized.");
+	        		return true;
+	        	}
 	    	}
 
 	   		return false;
