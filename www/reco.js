@@ -40,7 +40,6 @@ cordova.define("cordova/plugin/recognizer",
 
         Recognizer.prototype.setupKeyphrase = function(keys){
           exec(recognizer._setupok, recognizer._error, "Recognizer", "setupKeyphrase", keys);
-
         };
 
         Recognizer.prototype.startListening = function(name){

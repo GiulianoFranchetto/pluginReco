@@ -61,10 +61,9 @@ public class Recognizer_v2
     	public boolean execute(String action, final JSONArray args,
             final CallbackContext callbackId) throws JSONException {
     		activity = this.cordova.getActivity();
-    		this.callbackContext = callbackId;
 
     		if(action.equals("setupRecognizer")){
-    	
+    			this.callbackContext = callbackId;
     			this.accoustic = args.getString(0);
     			this.dictionnary = args.getString(1);
 
@@ -100,6 +99,7 @@ public class Recognizer_v2
 	    	}
 
 	    	else if(action.equals("setupGrammar")){
+    			this.callbackContext = callbackId;
 	    		if(setup){
 		    		for(int i = 0; i < args.length(); i++){
 		    			String gName = args.getJSONObject(i).getString("name");
@@ -136,6 +136,7 @@ public class Recognizer_v2
 	    	}
 
 	    	else if(action.equals("setupKeyphrase")){
+    			this.callbackContext = callbackId;
 	    		if(setup){
 		    		for(int i = 0; i < args.length(); i++){
 		    			String kName = args.getJSONObject(i).getString("name");
@@ -171,6 +172,7 @@ public class Recognizer_v2
 	    	}
 
 	    	else if(action.equals("startListening")){
+    			this.callbackContext = callbackId;
 				if(setup){
 					String searchName = args.getString(0); 
 		    		recognizer.startListening(searchName);
