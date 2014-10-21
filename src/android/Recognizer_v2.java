@@ -93,7 +93,11 @@ public class Recognizer_v2
 	        				recognizer.addGrammarSearch(gName, menuGrammar);
 			            }
 			            catch(Exception e){
-			            	callbackContext.error("Fail to setup grammar");
+			            	//callbackContext.error("Fail to setup grammar");
+			            	JSONObject obj = new JSONObject();
+			            	obj.put("message", "Fail to setup grammar" );
+			            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
+						    callbackContext.sendPluginResult(pluginResult);
 			            	return true;
 			            }
 	        		}
