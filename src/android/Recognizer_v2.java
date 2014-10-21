@@ -40,10 +40,15 @@ public class Recognizer_v2
 
     	private String accoustic = "";
     	private String dictionnary = "";
+    	private ArrayList<String> grammarsName;
+    	private ArrayList<String> grammarsPath;
+    	private File modelsDir;
 
 
     	/** CONSTRUCTOR **/
     	public Recognizer_v2(){
+    		grammarsName = new ArrayList<String>();
+    		grammarsPath = new ArrayList<String>();
     	}
 
     	public boolean execute(String action, final JSONArray args,
@@ -51,6 +56,7 @@ public class Recognizer_v2
     		activity = this.cordova.getActivity();
 
     		if(action.equals("setupRecognizer")){
+    			
     			this.callbackContext = callbackId;
     			this.accoustic = args.getString(0);
     			this.dictionnary = args.getString(1);
@@ -61,13 +67,36 @@ public class Recognizer_v2
 		                if(e==null){
 				            callbackContext.success();
 			      		}else{
-				            callbackContext.error("Fail");
+				            callbackContext.error("Fail to initialize");
 			      		}
 		            }
 		        });
 
        			return true;
 	    	}
+
+	    	else if(action.equals("setGrammar")){
+	    		
+	    		for(int i = 0; i < args.length(); i++){
+	    			String gName = args.getJSONObject(i).getString("name");
+	    			String gPath = args.getJSONObject(i).getString("path");
+
+		            this.grammarsName.add(gName);
+		            this.grammarsPath.add(gPath);
+
+		            try{
+		            	File menuGrammar = new File(modelsDir, gPath);
+        				recognizer.addGrammarSearch(gName, menuGrammar);
+		            }
+		            catch(Exception e){
+		            	callbackContext.error("Fail to setup grammar");
+		            	return true;
+		            }
+        		}
+        		callbackContext.success();
+        		return true;
+	    	}
+
 	   		return false;
 		}
     			
@@ -93,7 +122,7 @@ public class Recognizer_v2
 	    }
 
 	    private void setupReco(File assetsDir) {
-        	File modelsDir = new File(assetsDir, "models");
+        	modelsDir = new File(assetsDir, "models");
 	        recognizer = defaultSetup()
 	                .setAcousticModel(new File(modelsDir, accoustic))
 	                .setDictionary(new File(modelsDir, dictionnary))
