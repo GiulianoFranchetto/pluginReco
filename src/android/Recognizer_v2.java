@@ -69,7 +69,7 @@ public class Recognizer_v2
 		                Exception e = setupRecognizer();
 		                if(e==null){
 		                	setup = true;
-				            callbackContext.success();
+				            callbackContext.success("Initialization completed");
 			      		}else{
 				            callbackContext.error("Fail to initialize");
 			      		}

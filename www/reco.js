@@ -27,9 +27,9 @@ cordova.define("cordova/plugin/recognizer",
           cordova.fireWindowEvent("newmessage", info);
         };
 
-        Recognizer.prototype._setupok = function (info) {
-          console.log('Setup completed without issue')
-          cordova.fireWindowEvent("setupcompleted", null);
+        Recognizer.prototype._setupok = function (message) {
+          console.log(message);
+          cordova.fireWindowEvent("setupcompleted", message);
         };
 
         Recognizer.prototype._error = function(err) {
