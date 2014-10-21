@@ -97,7 +97,7 @@ public class Recognizer_v2
 
 		public Exception setupRecognizer(){
             try {
-                Assets assets = new Assets(Recognizer_v2.this.cordova.getContext());
+                Assets assets = new Assets(this.cordova.getContext());
                 File assetDir = assets.syncAssets();
                 setupReco(assetDir);
             } catch (IOException e) {
