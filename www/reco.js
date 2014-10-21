@@ -14,14 +14,17 @@ cordova.define("cordova/plugin/recognizer",
           };
 
         };
-      
+        
+        Recognizer.prototype.setupKeyphraseOK = function (message) {
+          cordova.fireWindowEvent("keyphrasecompleted", message);
+        };        
 
         Recognizer.prototype.message = function (info) {
           cordova.fireWindowEvent("newmessage", info);
         };
 
         Recognizer.prototype._setupok = function (message) {
-          console.log(message);
+          console.log(message.message);
           cordova.fireWindowEvent("setupcompleted", message);
         };
 
@@ -39,7 +42,7 @@ cordova.define("cordova/plugin/recognizer",
         };
 
         Recognizer.prototype.setupKeyphrase = function(keys){
-          exec(recognizer._setupok, recognizer._error, "Recognizer", "setupKeyphrase", keys);
+          exec(recognizer.setupKeyphraseOK, recognizer._error, "Recognizer", "setupKeyphrase", keys);
         };
 
         Recognizer.prototype.startListening = function(name){

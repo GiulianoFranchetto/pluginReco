@@ -144,18 +144,10 @@ public class Recognizer_v2
 
 			            this.keyName.add(kName);
 			            this.keyPhrase.add(kPhrase);
-
-			            try{
-			            	 recognizer.addKeyphraseSearch(kName, kPhrase);
-			            }
-			            catch(Exception e){
-			            	obj = new JSONObject();
-			            	obj.put("message", "Fail to setup keyphrase" );
-			            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
-						    callbackContext.sendPluginResult(pluginResult);
-			            	return true;
-			            }
+			            
+			            recognizer.addKeyphraseSearch(kName, kPhrase);
 	        		}
+
 					obj = new JSONObject();
 	            	obj.put("message", "Keyphrase setup completed" );
 	            	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
@@ -188,8 +180,6 @@ public class Recognizer_v2
 
 	   		return false;
 		}
-    			
-
 
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	        
