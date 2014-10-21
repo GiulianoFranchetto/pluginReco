@@ -20,7 +20,7 @@ import edu.cmu.pocketsphinx.SpeechRecognizer;
 /** JAVA IMPORT **/
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayLis;
+import java.util.ArrayList;
 
 /** ANDROID IMPORTS **/
 import android.app.Activity;
