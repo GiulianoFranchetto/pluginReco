@@ -2,7 +2,6 @@
 <plugin id="com.giulianofranchetto.plugins.speechreco" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>continuous speech recognition</name>
     <description>A plugin for continuous speech recognition. Using CMU pocketsphinx</description>
-    <license>Apache 2.0</license>
     <keywords>cordova,plugins,speech,recognition,sphinx,pocketsphinx</keywords>    
 
     <js-module name="reco" src="www/reco.js">
@@ -12,7 +11,7 @@
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Recognizer">
-                <param name="android-package" value="com.giulianofranchetto.plugins.speechreco.Recognizer" />
+                <param name="android-package" value="com.giulianofranchetto.plugins.speechreco.Recognizer_v2" />
             </feature>
         </config-file>
         
