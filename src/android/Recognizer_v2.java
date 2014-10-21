@@ -45,7 +45,7 @@ public class Recognizer_v2
     	private ArrayList<String> grammarsPath;
     	private File modelsDir;
 
-    	privqte JSONObject obj;
+    	private JSONObject obj;
 
     	private boolean setup = false;
 
