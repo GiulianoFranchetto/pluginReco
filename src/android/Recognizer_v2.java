@@ -86,7 +86,7 @@ public class Recognizer_v2
 			      		}else{
 				            try{
 				            	obj = new JSONObject();
-				            	obj.put("message", "Fail to initialize" );
+				            	obj.put("message", e );
 				            	PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, obj);
 						    	callbackContext.sendPluginResult(pluginResult);
 						    }
