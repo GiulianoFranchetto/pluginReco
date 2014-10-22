@@ -189,7 +189,7 @@ public class Recognizer_v2
 	    public void onPartialResult(Hypothesis hypothesis) {	       
         	String listenedText = hypothesis.getHypstr();
         	Log.d("SphinxResult", listenedText);
-        	if(listenedText.equals("lea"))
+        	if(listenedText.equals("bonjour"))
         	{
 				try{
 					obj = new JSONObject();
