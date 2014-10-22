@@ -188,7 +188,7 @@ public class Recognizer_v2
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
         	String listenedText = hypothesis.getHypstr().toLowerCase();
-        	if(listenedText.equals("hello"))
+        	if(listenedText.equals("oh mighty computer"))
         	{
 				try{
 					obj = new JSONObject();
