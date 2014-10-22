@@ -192,7 +192,7 @@ public class Recognizer_v2
 	        	obj.put("message", listenedText);
 	        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
 	        	pluginResult.setKeepCallback(true);
-			    callbackContext.sendPluginResult(pluginResult);*/
+			    callbackContext.sendPluginResult(pluginResult);
 			    //recognizer.stop();
 			}
 			catch(Exception ex){
