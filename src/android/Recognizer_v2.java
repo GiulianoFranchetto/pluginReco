@@ -202,7 +202,7 @@ public class Recognizer_v2
 	    @Override
 	    public void onResult(Hypothesis hypothesis) {
         	try{
-	        	String listenedText = "Result :" + hypothesis.getHypstr();
+	        	String listenedText = hypothesis.getHypstr();
 		    	obj = new JSONObject();
 	        	obj.put("message", listenedText);
 	        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
