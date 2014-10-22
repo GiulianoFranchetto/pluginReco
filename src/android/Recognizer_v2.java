@@ -186,7 +186,7 @@ public class Recognizer_v2
 
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
-	    	try{
+	    	/*try{
 	        	String listenedText = hypothesis.getHypstr();
 		    	obj = new JSONObject();
 	        	obj.put("message", listenedText);
@@ -197,12 +197,12 @@ public class Recognizer_v2
 			}
 			catch(Exception ex){
 				//dummy exception
-			} 
+			} */
 	    }
 
 	    @Override
 	    public void onResult(Hypothesis hypothesis) {
-        	/*try{
+        	try{
 	        	String listenedText = hypothesis.getHypstr();
 		    	obj = new JSONObject();
 	        	obj.put("message", listenedText);
@@ -212,7 +212,7 @@ public class Recognizer_v2
 			}
 			catch(Exception ex){
 				//dummy exception
-			}*/
+			}
 	    } 
 	      @Override
 	    public void onBeginningOfSpeech() {
@@ -221,7 +221,7 @@ public class Recognizer_v2
 
 	    @Override
 	    public void onEndOfSpeech() {
-
+	    	recognizer.stop();
 	    }
 
 	    private void setupReco(File assetsDir) {
