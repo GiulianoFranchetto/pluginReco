@@ -188,7 +188,7 @@ public class Recognizer_v2
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
         	String listenedText = hypothesis.getHypstr();
-        	//if(listenedText.equals("bonjour"))
+        	if(listenedText.equals("bonjour"))
         	{
 				try{
 					obj = new JSONObject();
@@ -222,7 +222,7 @@ public class Recognizer_v2
 
 	    @Override
 	    public void onEndOfSpeech() {
-	    	//if(recognizer.getSearchName() != "lea") recognizer.stop();
+	    	if(recognizer.getSearchName() != "lea") recognizer.stop();
 	    }
 
 	    private void setupReco(File assetsDir) {
