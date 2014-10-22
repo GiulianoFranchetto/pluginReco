@@ -188,8 +188,7 @@ public class Recognizer_v2
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
         	String listenedText = hypothesis.getHypstr();
-        	Log.d("SphinxResult", listenedText);
-        	if(listenedText.equals("bonjour"))
+        	//if(listenedText.equals("bonjour"))
         	{
 				try{
 					obj = new JSONObject();
