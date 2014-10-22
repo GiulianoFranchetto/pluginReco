@@ -187,7 +187,7 @@ public class Recognizer_v2
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
         	String listenedText = hypothesis.getHypstr();
-        	if(listenedText === "lea")
+        	if(listenedText.equals("lea"))
         	{
 				try{
 					obj = new JSONObject();
@@ -198,7 +198,7 @@ public class Recognizer_v2
 				}
 				catch(Exception exe){
 
-					
+
 				}
 
         	}
