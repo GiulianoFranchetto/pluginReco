@@ -187,14 +187,15 @@ public class Recognizer_v2
 
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
-        	String listenedText = hypothesis.getHypstr().toLowerCase();
-        	if(listenedText.equals("oh mighty computer"))
+        	String listenedText = hypothesis.getHypstr();
+        	if(listenedText.equals("bonjour"))
         	{
 				try{
 					obj = new JSONObject();
 		        	obj.put("message", listenedText);
 		        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
 				    callbackContext.sendPluginResult(pluginResult);
+				    recognizer.stop();
 				    recognizer.startListening("commandes");
 				}
 				catch(Exception exe){
@@ -222,7 +223,10 @@ public class Recognizer_v2
 
 	    @Override
 	    public void onEndOfSpeech() {
-	    	if(recognizer.getSearchName() != "lea") recognizer.startListening("lea");
+	    	if(recognizer.getSearchName() != "lea") {
+	    		recognizer.stop();
+	    		recognizer.startListening("lea");
+	    	}
 	    }
 
 	    private void setupReco(File assetsDir) {

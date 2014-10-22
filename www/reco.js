@@ -25,7 +25,9 @@ cordova.define("cordova/plugin/recognizer",
         };        
 
         Recognizer.prototype.message = function (info) {
-          cordova.fireWindowEvent("newmessage", info);
+          if(info.message==="bonjour")
+          {}
+          else cordova.fireWindowEvent("newmessage", info);
         };
 
         Recognizer.prototype._setupok = function (message) {
