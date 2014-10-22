@@ -56,6 +56,8 @@ public class Recognizer_v2
     	public Recognizer_v2(){
     		grammarsName = new ArrayList<String>();
     		grammarsPath = new ArrayList<String>();
+    		keyName = new ArrayList<String>();
+    		keyPhrase = new ArrayList<String>();
     	}
 
     	public boolean execute(String action, final JSONArray args,
