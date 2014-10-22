@@ -197,17 +197,8 @@ public class Recognizer_v2
 				    callbackContext.sendPluginResult(pluginResult);
 				}
 				catch(Exception exe){
-
-
 				}
-
         	}
-	    	obj = new JSONObject();
-        	obj.put("message", listenedText);
-        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
-        	pluginResult.setKeepCallback(true);
-		    callbackContext.sendPluginResult(pluginResult);
-		    //recognizer.stop();
 	    }
 
 	    @Override
