@@ -187,13 +187,13 @@ public class Recognizer_v2
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
 	    	try{
-	        	String listenedText = hypothesis.getHypstr();
+	        	/*String listenedText = hypothesis.getHypstr();
 		    	obj = new JSONObject();
 	        	obj.put("message", listenedText);
 	        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
 	        	pluginResult.setKeepCallback(true);
 			    callbackContext.sendPluginResult(pluginResult);
-			    //recognizer.stop();
+			    //recognizer.stop();*/
 			}
 			catch(Exception ex){
 				//dummy exception
@@ -203,12 +203,12 @@ public class Recognizer_v2
 	    @Override
 	    public void onResult(Hypothesis hypothesis) {
         	try{
-	        	/*String listenedText = hypothesis.getHypstr();
+	        	String listenedText = hypothesis.getHypstr();
 		    	obj = new JSONObject();
 	        	obj.put("message", listenedText);
 	        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
 			    callbackContext.sendPluginResult(pluginResult);
-			    recognizer.stop();*/
+			    recognizer.stop();
 			}
 			catch(Exception ex){
 				//dummy exception
