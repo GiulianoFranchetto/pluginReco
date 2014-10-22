@@ -195,6 +195,7 @@ public class Recognizer_v2
 		        	obj.put("message", listenedText);
 		        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
 				    callbackContext.sendPluginResult(pluginResult);
+				    recognizer.startListening("commandes");
 				}
 				catch(Exception exe){
 				}
@@ -209,7 +210,6 @@ public class Recognizer_v2
 	        	obj.put("message", listenedText);
 	        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
 			    callbackContext.sendPluginResult(pluginResult);
-			    recognizer.stop();
 			}
 			catch(Exception ex){
 				//dummy exception
@@ -222,7 +222,7 @@ public class Recognizer_v2
 
 	    @Override
 	    public void onEndOfSpeech() {
-	    	if(recognizer.getSearchName() != "lea") recognizer.stop();
+	    	if(recognizer.getSearchName() != "lea") recognizer.startListening("lea");
 	    }
 
 	    private void setupReco(File assetsDir) {
