@@ -186,7 +186,7 @@ public class Recognizer_v2
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
 	    	try{
-	        	String listenedText = hypothesis.getHypstr();
+	        	String listenedText = "Partial : " + hypothesis.getHypstr();
 		    	obj = new JSONObject();
 	        	obj.put("message", listenedText);
 	        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
@@ -201,7 +201,7 @@ public class Recognizer_v2
 	    @Override
 	    public void onResult(Hypothesis hypothesis) {
         	try{
-	        	String listenedText = hypothesis.getHypstr();
+	        	String listenedText = "Result :" + hypothesis.getHypstr();
 		    	obj = new JSONObject();
 	        	obj.put("message", listenedText);
 	        	PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, obj);
