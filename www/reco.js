@@ -25,8 +25,11 @@ cordova.define("cordova/plugin/recognizer",
         };        
 
         Recognizer.prototype.message = function (info) {
+          console.log(info.message);
           if(info.message==="bonjour")
-          {}
+          {
+
+          }
           else cordova.fireWindowEvent("newmessage", info);
         };
 
