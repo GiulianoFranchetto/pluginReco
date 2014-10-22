@@ -223,7 +223,7 @@ public class Recognizer_v2
 
 	    @Override
 	    public void onEndOfSpeech() {
-	    	if(recognizer.getSearchName() != "lea") recognizer.stop();
+	    	//if(recognizer.getSearchName() != "lea") recognizer.stop();
 	    }
 
 	    private void setupReco(File assetsDir) {
