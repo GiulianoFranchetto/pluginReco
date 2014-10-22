@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.util.Log;
 import static android.widget.Toast.makeText;
 
 public class Recognizer_v2 
@@ -187,6 +188,7 @@ public class Recognizer_v2
         @Override
 	    public void onPartialResult(Hypothesis hypothesis) {	       
         	String listenedText = hypothesis.getHypstr();
+        	Log.d("SphinxResult", listenedText);
         	if(listenedText.equals("lea"))
         	{
 				try{
